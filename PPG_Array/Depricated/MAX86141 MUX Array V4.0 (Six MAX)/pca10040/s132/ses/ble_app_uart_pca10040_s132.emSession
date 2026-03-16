@@ -1,0 +1,61 @@
+<!DOCTYPE CrossStudio_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints">
+  <BreakpointListItem trigger="" line="120" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" useHWbreakpoint="false"/>
+  <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
+ </Breakpoints>
+ <ExecutionProfileWindow/>
+ <FrameBuffer/>
+ <Memory1/>
+ <Memory2/>
+ <Memory3/>
+ <Memory4/>
+ <Project>
+  <ProjectSessionItem path="ble_app_uart_pca10040_s132"/>
+  <ProjectSessionItem path="ble_app_uart_pca10040_s132;ble_app_uart_pca10040_s132"/>
+  <ProjectSessionItem path="ble_app_uart_pca10040_s132;ble_app_uart_pca10040_s132;Drivers"/>
+  <ProjectSessionItem path="ble_app_uart_pca10040_s132;ble_app_uart_pca10040_s132;None"/>
+ </Project>
+ <Register1/>
+ <Register2/>
+ <Register3/>
+ <Register4/>
+ <Threads>
+  <ThreadsWindow showLists=""/>
+ </Threads>
+ <TraceWindow>
+  <Trace enabled="Yes"/>
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never"/>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never"/>
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never"/>
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never"/>
+ </Watch4>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="3668" useTextEdit="1" path="sdk_config.h" left="0" top="3652" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="858" useTextEdit="1" openedFrom="C:/Users/philt/Box/Lu Lab/nRF Code/Nordic SDK 15.3/integration/nrfx/legacy/nrf_drv_spi.h" path="../../../../../../integration/nrfx/legacy/apply_old_config.h" left="0" top="842" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="49" useTextEdit="1" openedFrom="/Users/ericwang/Library/CloudStorage/Box-Box/Philip &amp; Nanshu/Research/nRF Code/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c" path="../../../my_drivers/src/max86141_driver.c" left="0" top="405" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="658" useTextEdit="1" openedFrom="/Users/ericwang/Library/CloudStorage/Box-Box/Philip &amp; Nanshu/Research/nRF Code/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c" path="../../../../../../components/softdevice/s132/headers/nrf_soc.h" left="0" top="631" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="33" y="5" useTextEdit="1" openedFrom="/Users/ericwang/Library/CloudStorage/Box-Box/Philip &amp; Nanshu/Research/nRF Code/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/my_drivers/src/max86141_driver.c" path="../../../my_drivers/include/max86141_driver.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="238" useTextEdit="1" path="main.c" left="0" top="216" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="36" y="119" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.h" left="0" top="105" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="10" useTextEdit="1" path="../../../my_drivers/src/i2c_driver.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="42" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/src/helper_functions.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/include/helper_functions.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" path="Output/Debug/Obj/ble_app_uart_pca10040_s132/helper_functions.o" left="0" top="28" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="160" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/src/ble_driver.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="121" useTextEdit="1" path="../../../../../../modules/nrfx/mdk/ses_startup_nrf_common.s" left="0" selected="1" top="108" codecName="Default"/>
+ </Files>
+ <EMStudioWindow activeProject="ble_app_uart_pca10040_s132" fileDialogDefaultFilter="*" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V4.0 (Six MAX)/my_drivers/src" debugSearchPath="" autoConnectCapabilities="3199"/>
+</session>
