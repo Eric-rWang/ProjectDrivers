@@ -129,9 +129,14 @@ void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t 
 /*
  *@brief Function for reading data from the FIFO of the MAX86141
  */
+
+void max86141_process_data(void);
+
 void max86141_fifo_parser(uint8_t PIN_CS_PPG);
 
 void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins);
+
+bool max86141_fetch_filtered_data(uint8_t cs_pin, uint8_t* out_buf);
 
 void dump_fifo_data(uint8_t *data_buf, uint16_t num_bytes);
 
@@ -150,3 +155,6 @@ void check_die_temperatures();
  */
 void max86141_config_pin(void);
 
+void max86141_dump_all_ic_registers(void);
+
+void max86141_cs_pin_test(void);

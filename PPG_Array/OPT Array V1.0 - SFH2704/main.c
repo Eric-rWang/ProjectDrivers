@@ -147,12 +147,17 @@ int main(void) {
     spi_init();
 
     max86141_init();
+
+    max86141_cs_pin_test();            // Run first — checks wiring
+    max86141_dump_all_ic_registers();  // Verifies all configs match
 	
     // Start execution.
     advertising_start();
 
     for (;;)
     {
+        max86141_process_data();
+        NRF_LOG_PROCESS();
         sd_app_evt_wait();
         //nus_add_to_buffer(ble_array, 216);
     }

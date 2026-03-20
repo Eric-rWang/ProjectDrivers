@@ -15,6 +15,7 @@ uint8_t PIN_CS_PPG[NUM_MAX_IC] = {
 };
 
 static bool max86141_init_success = false;
+volatile bool ppg_data_ready = false;
 uint8_t skipped_nrf_temp_meas = 0;
 
 void max86141_config_pin(void) {
@@ -90,6 +91,8 @@ void max86141_init(void) {
 	//[3:2]:	PPG1_ADC_RGE
 	//[1:0]:	PPG_TINT: 14.8us (0x0), 29.4us (0x1), 58.7 (0x2), 117.3 (0x3)
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_CONFIGURATION_1, (1 << 7) | (0x03 << 4) | (0x03 << 2) | (0x03), NUM_MAX_IC);
+        //spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_CONFIGURATION_1, (0 << 7) | (0x03 << 4) | (0x03 << 2) | (0x03), NUM_MAX_IC);
+  
 	
 	//Set the sample averaging to 1 (write 0x0 to SMP_AVE[2:0])
 	//Set the sample rate to 100sps (write 0x03 to PPG_SR[4:0])
@@ -129,23 +132,20 @@ void max86141_init(void) {
         spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_1, (0x00 << 4) | (0x00 << 2) | (0x00), NUM_MAX_IC);
         spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_2, (0x00 << 4) | (0x00 << 2) | (0x00), NUM_MAX_IC);
 
-	//Set the LED 1 Drive Current to 124mA (write 0xFF to LED1_DRV[7:0]) (Red)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0xF0, NUM_MAX_IC);
-	
-	//Set the LED 2 Drive Current to 124mA (write 0xFF to LED2_DRV[7:0]) (IR)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0xF0, NUM_MAX_IC);
+	//Set the LED 1 Drive Current to 124mA (write 0xFF to LED1_DRV[7:0]) (1. HUMAN: 660 -> PHANTOM: 540)
+        //Set the LED 5 Drive Current to 124mA (write 0xFF to LED5_DRV[7:0]) (1. HUMAN: 660 -> PHANTOM: 540)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x84, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x84, NUM_MAX_IC);
 
-        //Set the LED 3 Drive Current to 124mA (write 0xFF to LED3_DRV[7:0]) (Red)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0xF0, NUM_MAX_IC);
+        //Set the LED 3 Drive Current to 124mA (write 0xFF to LED3_DRV[7:0]) (2. HUMAN: 940 -> PHANTOM: 660)
+	//Set the LED 4 Drive Current to 124mA (write 0xFF to LED4_DRV[7:0]) (2. HUMAN: 940 -> PHANTOM: 660)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x42, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x42, NUM_MAX_IC);
 
-	//Set the LED 4 Drive Current to 124mA (write 0xFF to LED4_DRV[7:0]) (IR)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0xF0, NUM_MAX_IC);
-
-	//Set the LED 5 Drive Current to 124mA (write 0xFF to LED5_DRV[7:0]) (Red)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0xF0, NUM_MAX_IC);
-
-        //Set the LED 6 Drive Current to 124mA (write 0xFF to LED6_DRV[7:0]) (IR)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0xF0, NUM_MAX_IC);
+        //Set the LED 6 Drive Current to 124mA (write 0xFF to LED6_DRV[7:0]) (3. HUMAN: 850 -> PHANTOM: 630)
+        //Set the LED 2 Drive Current to 124mA (write 0xFF to LED2_DRV[7:0]) (3. HUMAN: 850 -> PHANTOM: 630)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x42, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x42, NUM_MAX_IC);
         
         //-------------------------------------------------------------------//
 	////////////////////FIFO Configuration/////////////////////////////////
@@ -243,15 +243,11 @@ bool max86141_verify_integrity(uint16_t cs_pin) {
         return init;
 }
 
-void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-	//Read status (Read 0x00 and put in intStatus)	
-	uint8_t intStatus = spi_read_reg(SPI_CS_6, MAX86141_INTERRUPT_STATUS_1);
+uint8_t test[3] = {0, 0, 0};
 
-	if (intStatus & 0x80) { //A FULL RDY
-		//Read PPG FIFO
-                max86141_fifo_multi_parser(PIN_CS_PPG, NUM_MAX_IC);
-	}
-}
+uint32_t poop = 0;
+
+bool MAX86141_NOT_FULL = false;
 
 void max86141_setup_interrupts(void) {
 	//Interrupt will bring INT_PPG low. We also need to enable the internal pullup resistor.
@@ -270,18 +266,36 @@ void max86141_setup_interrupts(void) {
 	NRF_LOG_FLUSH();
 }
 
-uint8_t test[3] = {0, 0, 0};
+void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
+	//Read status (Read 0x00 and put in intStatus)	
+	ppg_data_ready = true;
+}
 
-uint32_t poop = 0;
+void max86141_process_data(void) {
+    if (!ppg_data_ready) return;
+    ppg_data_ready = false;
+ 
+    // Safe to do SPI here — we're in thread context,
+    // so the SPI completion IRQ can preempt us normally.
+    uint8_t intStatus = spi_read_reg(SPI_CS_6, MAX86141_INTERRUPT_STATUS_1);
+ 
+    if (intStatus & 0x80) {
+        max86141_fifo_multi_parser(PIN_CS_PPG, NUM_MAX_IC);
+    }
+}
 
-bool MAX86141_NOT_FULL = false;
+void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins) {
+        for(int i = 0; i < num_pins; i++) {
+            max86141_fifo_parser(PINS_CS_PPG[i]);
+        }
+}
 
 void max86141_fifo_parser(uint8_t PIN_CS_PPG) {
 	uint8_t sampleCnt = spi_read_reg(PIN_CS_PPG,MAX86141_FIFO_DATA_COUNTER); // sampleCnt should be the same value as FIFO_SAMPLES;
 
         //NRF_LOG_INFO("Data in FIFO (%d), expected (%d)", sampleCnt, MAX86141_FIFO_SAMPLES);
 
-	if (sampleCnt != MAX86141_FIFO_SAMPLES) {
+	if (sampleCnt < MAX86141_FIFO_SAMPLES) {
 		NRF_LOG_INFO("CS: (%d) ~ Data in FIFO (%d) is NOT as expected (%d)", PIN_CS_PPG, sampleCnt, MAX86141_FIFO_SAMPLES);
 		NRF_LOG_FLUSH();
                 MAX86141_NOT_FULL = true;
@@ -302,9 +316,7 @@ void max86141_fifo_parser(uint8_t PIN_CS_PPG) {
 	//nus_add_to_buffer(data_buf, bytes_to_read);
 
         // Dump extra data not needed...
-        static const uint8_t drop_mask[12] = {
-            1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1
-        };
+        static const uint8_t drop_mask[12] = { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0 };
 
         // This buffer will hold the 6 kept samples (6 * 3 = 18 bytes)
         uint8_t filtered_buf[6 * 3];
@@ -336,14 +348,6 @@ void dump_fifo_data(uint8_t *data_buf, uint16_t num_bytes) {
         NRF_LOG_RAW_INFO("%02X ", data_buf[i]); // Print each byte in hexadecimal format
     }
     NRF_LOG_FLUSH();
-}
-
-void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins) {
-	
-        for(int i = 0; i < num_pins; i++) {
-            max86141_fifo_parser(PINS_CS_PPG[i]);
-        }
-
 }
 
 void max86141_start_die_temp_measurement(void) {
@@ -389,4 +393,146 @@ void check_die_temperatures() {
 	} else {
 		skipped_nrf_temp_meas ++;
 	}
+}
+
+
+// TESTING //
+// It reads back every critical register from each IC individually
+// and flags any IC whose value differs from the majority.
+void max86141_dump_all_ic_registers(void)
+{
+    // Registers that control ADC range, LED current, and sampling —
+    // any mismatch here explains saturation on one IC.
+    typedef struct {
+        uint8_t addr;
+        const char *name;
+    } reg_entry_t;
+ 
+    static const reg_entry_t regs[] = {
+        { 0x11, "PPG_CFG1  ADC_RGE/TINT" },
+        { 0x12, "PPG_CFG2  SR/SMP_AVE"   },
+        { 0x13, "PPG_CFG3  LED_SETLNG"   },
+        { 0x15, "PD_BIAS"                },
+        { 0x20, "LED_SEQ1"               },
+        { 0x21, "LED_SEQ2"               },
+        { 0x22, "LED_SEQ3"               },
+        { 0x23, "LED1_PA"                },
+        { 0x24, "LED2_PA"                },
+        { 0x25, "LED3_PA"                },
+        { 0x26, "LED4_PA"                },
+        { 0x27, "LED5_PA"                },
+        { 0x28, "LED6_PA"                },
+        { 0x2A, "LED_RNG1"              },
+        { 0x2B, "LED_RNG2"              },
+        { 0x09, "FIFO_CFG1"             },
+        { 0x0A, "FIFO_CFG2"             },
+        { 0x0D, "SYS_CTRL"              },
+        { 0xFF, "PART_ID"               },
+    };
+ 
+    uint8_t num_regs = sizeof(regs) / sizeof(regs[0]);
+    uint8_t vals[NUM_MAX_IC];
+    uint8_t mismatch_count = 0;
+ 
+    NRF_LOG_INFO("========== MAX86141 REGISTER DUMP ==========");
+    NRF_LOG_INFO("Register                    IC1   IC2   IC3   IC4   IC5   IC6   Match?");
+    NRF_LOG_INFO("------------------------------------------------------------------------");
+    NRF_LOG_FLUSH();
+ 
+    for (uint8_t r = 0; r < num_regs; r++) {
+        // Read this register from each IC using its own CS pin
+        for (uint8_t ic = 0; ic < NUM_MAX_IC; ic++) {
+            vals[ic] = spi_read_reg(PIN_CS_PPG[ic], regs[r].addr);
+        }
+ 
+        // Check if all ICs agree
+        uint8_t all_match = 1;
+        for (uint8_t ic = 1; ic < NUM_MAX_IC; ic++) {
+            if (vals[ic] != vals[0]) {
+                all_match = 0;
+                break;
+            }
+        }
+ 
+        if (!all_match) mismatch_count++;
+        
+        NRF_LOG_INFO("%-28s 0x%02X  0x%02X  0x%02X",
+            regs[r].name, vals[0], vals[1], vals[2]);
+        NRF_LOG_INFO("                             0x%02X  0x%02X  0x%02X  %s",
+            vals[3], vals[4], vals[5],
+            all_match ? "OK" : "** MISMATCH **");
+        NRF_LOG_FLUSH();
+    }
+ 
+    NRF_LOG_INFO("------------------------------------------------------------------------");
+    if (mismatch_count == 0) {
+        NRF_LOG_INFO("All %d ICs match on every register.", NUM_MAX_IC);
+    } else {
+        NRF_LOG_INFO("WARNING: %d register(s) have mismatches!", mismatch_count);
+    }
+    NRF_LOG_INFO("============================================");
+    NRF_LOG_FLUSH();
+}
+ 
+ 
+// ---------- CS Pin Connectivity Test ----------
+// Writes a unique pattern to each IC, reads all back.
+// This verifies each CS pin actually addresses a different IC.
+// Uses PPG_SYNC_CONTROL (0x10) as scratch — you already use it,
+// so we restore it to 0x02 when done.
+ 
+void max86141_cs_pin_test(void)
+{
+    uint8_t test_patterns[NUM_MAX_IC] = { 0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6 };
+    uint8_t readback[NUM_MAX_IC];
+    uint8_t errors = 0;
+ 
+    NRF_LOG_INFO("--- CS Pin Connectivity Test ---");
+    NRF_LOG_FLUSH();
+ 
+    // Step 1: Write a UNIQUE pattern to each IC
+    for (uint8_t ic = 0; ic < NUM_MAX_IC; ic++) {
+        spi_write_reg(PIN_CS_PPG[ic], MAX86141_PPG_SYNC_CONTROL, test_patterns[ic]);
+    }
+ 
+    nrf_delay_ms(1);
+ 
+    // Step 2: Read back from each IC
+    for (uint8_t ic = 0; ic < NUM_MAX_IC; ic++) {
+        readback[ic] = spi_read_reg(PIN_CS_PPG[ic], MAX86141_PPG_SYNC_CONTROL);
+    }
+ 
+    // Step 3: Check results
+    for (uint8_t ic = 0; ic < NUM_MAX_IC; ic++) {
+        uint8_t ok = (readback[ic] == test_patterns[ic]);
+        if (!ok) errors++;
+ 
+        NRF_LOG_INFO("  IC%d: wrote 0x%02X, read 0x%02X  %s",
+            ic + 1, test_patterns[ic], readback[ic],
+            ok ? "OK" : "** FAIL **");
+    }
+ 
+    // Step 4: Check for crossed wires — did any two ICs return the same value?
+    for (uint8_t i = 0; i < NUM_MAX_IC; i++) {
+        for (uint8_t j = i + 1; j < NUM_MAX_IC; j++) {
+            if (readback[i] == readback[j] && readback[i] != 0x00) {
+                NRF_LOG_INFO("  WARNING: IC%d and IC%d returned same value 0x%02X — possible shared CS!",
+                    i + 1, j + 1, readback[i]);
+                errors++;
+            }
+        }
+    }
+ 
+    NRF_LOG_FLUSH();
+ 
+    if (errors == 0) {
+        NRF_LOG_INFO("  All CS pins are independently wired. OK.");
+    } else {
+        NRF_LOG_INFO("  ** %d error(s) found — check wiring! **", errors);
+    }
+    NRF_LOG_INFO("--------------------------------");
+    NRF_LOG_FLUSH();
+ 
+    // Restore the register to your init value (0x02 = MUX control)
+    spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_SYNC_CONTROL, 0x02, NUM_MAX_IC);
 }

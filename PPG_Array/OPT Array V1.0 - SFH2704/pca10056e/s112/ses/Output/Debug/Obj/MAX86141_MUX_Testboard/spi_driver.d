@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/spi_driver.o: \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\projects\PPG_Array\MAX86141\ MUX\ Array\ V3.1\my_drivers\src\spi_driver.c \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ SFH2704\my_drivers\src\spi_driver.c \
  ../../../my_drivers/include/spi_driver.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
  ../../../../../../modules/nrfx/nrfx.h \

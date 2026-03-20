@@ -26,7 +26,6 @@ static ble_uuid_t m_adv_uuids[]          =                                      
 
 uint8_t ble_buffer[NUS_PACKET_SIZE];
 uint16_t ble_buffer_index = 0;
-uint32_t poopie = 0;
 
 ble_nus_rx_handler_t nus_rx_handler;
 ble_cus_rx_handler_t cus_rx_handler;
@@ -108,29 +107,23 @@ void send_data_nus(uint8_t* data_array, uint16_t length) {
         try_drain_tx();
 
 }
+static uint8_t poopie = 0; 
 
 void nus_add_to_buffer(uint8_t* data, uint16_t length) {
+    // The controller iterates through the provided length, filling the BLE buffer.
+    for(int i = 0; i < length; i ++, ble_buffer_index ++) {
+        if (ble_buffer_index < NUS_PACKET_SIZE) {
+            ble_buffer[ble_buffer_index] = data[i];
+        }
+    }
 
-	for(int i = 0; i < length; i ++, ble_buffer_index ++) {
-		if (ble_buffer_index >= NUS_PACKET_SIZE) {
-                        NRF_LOG_INFO("BLE_BUFFER_INDEX (%d), Packet Size(%d)", ble_buffer_index, NUS_PACKET_SIZE);
-			//NRF_LOG_INFO("NUS buffer has reached max length! Discarding sample.");
-		} else {
-			ble_buffer[ble_buffer_index] = data[i];
-		}
-	}
-
-	if(ble_buffer_index == NUS_PACKET_SIZE - 1) {
-                //ble_buffer[ble_buffer_index] = poopie;
-                //NRF_LOG_INFO("buffer sent, poopie counter (%d), ble_buffer (%d)", poopie, ble_buffer_index);
-                  //NRF_LOG_INFO("NRF Sent", NUS_PACKET_SIZE);
-                  //NRF_LOG_FLUSH();
-
-                  ble_buffer[NUS_PACKET_SIZE - 1] = poopie;
-                  nus_send_buffer();
-                  poopie++;
-               
-	}
+    // After two 108-byte passes, the index reaches 216.
+    if(ble_buffer_index == NUS_PACKET_SIZE - 1) {
+        // The 217th byte is assigned the wrapping counter value.
+        ble_buffer[NUS_PACKET_SIZE - 1] = poopie;
+        nus_send_buffer();
+        poopie++; 
+    }
 }
 
 void nus_send_buffer(void) {
