@@ -135,7 +135,6 @@ void cus_data_received(uint8_t data) {
 int main(void) {
     bool erase_bonds;
 
-
     // Initialize.
     log_init();
     timers_init();
