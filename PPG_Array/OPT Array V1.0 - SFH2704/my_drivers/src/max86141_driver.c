@@ -316,7 +316,10 @@ void max86141_fifo_parser(uint8_t PIN_CS_PPG) {
 	//nus_add_to_buffer(data_buf, bytes_to_read);
 
         // Dump extra data not needed...
-        static const uint8_t drop_mask[12] = { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0 };
+        // Diagonal
+        //static const uint8_t drop_mask[12] = { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0 };
+        // Across
+        static const uint8_t drop_mask[12] = { 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1 };
 
         // This buffer will hold the 6 kept samples (6 * 3 = 18 bytes)
         uint8_t filtered_buf[6 * 3];
