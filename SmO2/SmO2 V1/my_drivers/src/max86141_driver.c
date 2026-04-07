@@ -60,16 +60,17 @@ void max86141_init(void) {
 	//Set the GPIO2 function to MUX control
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_SYNC_CONTROL, 0x04, NUM_MAX_IC);
 
-	//Set the pulse width to 117.3us (write 0x3 to PPG_TINT[1:0])
-	//Set the ADC Range to 32uA (write 0x3 to PPG1_ADC_RGET[1:0])
-	//Set the ADC Range to 32uA (write 0x3 to PPG2_ADC_RGET[1:0])
+	//Set the pulse width to 29.4us (write 0x1 to PPG_TINT[1:0])
+	//Set the ADC Range to 4uA (write 0x1 to PPG1_ADC_RGET[1:0])
+	//Set the ADC Range to 4uA (write 0x1 to PPG2_ADC_RGET[1:0])
+	//ALC enabled (ALC_DISABLE = 0)
 	//PPG Configuration 1 (0x11)
 	//[7]:		ALC_DISABLE
 	//[6]:		ADD_OFFSET
 	//[5:4]:	PPG2_ADC_RGE
 	//[3:2]:	PPG1_ADC_RGE
 	//[1:0]:	PPG_TINT: 14.8us (0x0), 29.4us (0x1), 58.7 (0x2), 117.3 (0x3)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_CONFIGURATION_1, (1 << 7) | (0x03 << 4) | (0x03 << 2) | (0x03), NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_CONFIGURATION_1, (0x01 << 4) | (0x01 << 2) | (0x01), NUM_MAX_IC);
 	
 	//Set the sample averaging to 1 (write 0x0 to SMP_AVE[2:0])
 	//Set the sample rate to 100sps (write 0x03 to PPG_SR[4:0])
@@ -83,31 +84,31 @@ void max86141_init(void) {
 	//Set the digital filter to CDM
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_CONFIGURATION_3, (0x00 << 6) | (0x00 << 5), NUM_MAX_IC);
 
-	//Set the PD 1 Biasing for Cpd = 0~65pF (write 0x01 to PDBIAS1[2:0])
-	//Set the PD 2 Biasing for Cpd = 0~65pF (write 0x01 to PDBIAS2[2:0])
+	//Set the PD 1 Biasing for Cpd = 0~65pF (write 0x02 to PDBIAS1[2:0])
+	//Set the PD 2 Biasing for Cpd = 0~65pF (write 0x02 to PDBIAS2[2:0])
 	//The TEMD7000 has a diode capacitance of 4pF
 	//Photo Diode Bias (0x15)
 	//[6:4]		PDBIAS2
 	//[2:1]		PDBIAS1
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PHOTODIODE_BIAS, (0b110 << 4) | (0b110), NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_PHOTODIODE_BIAS, (0b010 << 4) | (0b010), NUM_MAX_IC);
 
-	//Set the LED Driver 1 Range to 124mA (write 0x3 to LED1_RGE[1:0])
-	//Set the LED Driver 2 Range to 124mA (write 0x3 to LED2_RGE[1:0])
-	//Set the LED Driver 3 Range to 124mA (write 0x3 to LED2_RGE[1:0])
+	//Set the LED Driver 1 Range to 32mA (write 0x1 to LED1_RGE[1:0])
+	//Set the LED Driver 2 Range to 32mA (write 0x1 to LED2_RGE[1:0])
+	//Set the LED Driver 3 Range to 32mA (write 0x1 to LED3_RGE[1:0])
 	//LED Range 1 (0x2A)
 	//[5:4]		LED3_RGE
 	//[3:2]		LED2_RGE
 	//[1:0]		LED1_RGE
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_1, (0x03 << 4) | (0x03 << 2) | (0x03), NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_1, (0x01 << 4) | (0x01 << 2) | (0x01), NUM_MAX_IC);
 
-	//Set the LED Driver 4 Range to 124mA (write 0x3 to LED4_RGE[1:0])
-	//Set the LED Driver 5 Range to 124mA (write 0x3 to LED5_RGE[1:0])
-	//Set the LED Driver 6 Range to 124mA (write 0x3 to LED6_RGE[1:0])
+	//Set the LED Driver 4 Range to 32mA (write 0x1 to LED4_RGE[1:0])
+	//Set the LED Driver 5 Range to 32mA (write 0x1 to LED5_RGE[1:0])
+	//Set the LED Driver 6 Range to 32mA (write 0x1 to LED6_RGE[1:0])
 	//LED Range 2 (0x2B)
 	//[5:4]		LED4_RGE
 	//[3:2]		LED5_RGE
 	//[1:0]		LED6_RGE
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_2, (0x03 << 4) | (0x03 << 2) | (0x03), NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_2, (0x01 << 4) | (0x01 << 2) | (0x01), NUM_MAX_IC);
 
         //LED Driving Sequence
         //Driver    GPIO2 = 0 (1-3)       GPIO2 = 1 (4-6)
@@ -115,20 +116,20 @@ void max86141_init(void) {
         //DRV2  ->  LED3 (940nm back)     LED4 (660nm front)
         //DRV3  ->  LED5 (850nm front)    LED6 (940nm front)
 
-	//Set the LED 1 Drive Current to 124mA (write 0xFF to LED1_DRV[7:0]) (Red 660 -> Rear Position)
-        //Set the LED 2 Drive Current to 124mA (write 0xFF to LED2_DRV[7:0]) (Red 660 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x42, NUM_MAX_IC);
+	//Set the LED 1 Drive Current (write 0x10 to LED1_DRV[7:0]) (Red 660 -> Rear Position)
+        //Set the LED 2 Drive Current (write 0x10 to LED2_DRV[7:0]) (Red 660 -> Front Position)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x10, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x10, NUM_MAX_IC);
 
-        //Set the LED 3 Drive Current to 124mA (write 0xFF to LED3_DRV[7:0]) (IR1 850 -> Rear Position)
-        //Set the LED 4 Drive Current to 124mA (write 0xFF to LED4_DRV[7:0]) (IR1 850 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x42, NUM_MAX_IC);
+        //Set the LED 3 Drive Current (write 0x10 to LED3_DRV[7:0]) (IR1 850 -> Rear Position)
+        //Set the LED 4 Drive Current (write 0x10 to LED4_DRV[7:0]) (IR1 850 -> Front Position)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x10, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x10, NUM_MAX_IC);
 
-	//Set the LED 5 Drive Current to 124mA (write 0xFF to LED5_DRV[7:0]) (IR1 940 -> Rear Position)
-        //Set the LED 6 Drive Current to 124mA (write 0xFF to LED6_DRV[7:0]) (IR1 940 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x42, NUM_MAX_IC);
+	//Set the LED 5 Drive Current (write 0x10 to LED5_DRV[7:0]) (IR1 940 -> Rear Position)
+        //Set the LED 6 Drive Current (write 0x10 to LED6_DRV[7:0]) (IR1 940 -> Front Position)
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x10, NUM_MAX_IC);
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x10, NUM_MAX_IC);
         
         //-------------------------------------------------------------------//
 	////////////////////FIFO Configuration/////////////////////////////////
