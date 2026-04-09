@@ -179,6 +179,21 @@ void max86141_init(void) {
 
 //======================================================//
 
+//0x01 - MAX86141_LED1_PA			
+//0x02 - MAX86141_LED2_PA			
+//0x03 - MAX86141_LED3_PA			
+//0x04 - MAX86141_LED4_PA		
+//0x05 - MAX86141_LED5_PA			
+//0x06 - MAX86141_LED6_PA			
+
+
+void max86141_led_control(uint8_t current_val, uint8_t led_num) {
+  uint8_t led_reg = MAX86141_LED1_PA + (led_num - 1);
+  spi_write_multi_reg(PIN_CS_PPG, led_reg, led_num, NUM_MAX_IC);
+}
+
+//======================================================//
+
 void max86141_cs_set(void) {
         for (int i = 0; i < NUM_MAX_IC; i++) {
             nrf_gpio_pin_set(PIN_CS_PPG[i]);

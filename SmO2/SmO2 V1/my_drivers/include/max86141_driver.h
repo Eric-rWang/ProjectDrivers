@@ -94,6 +94,11 @@ extern uint8_t PPG_CS_PPG[NUM_MAX_IC];
 void max86141_init(void);
 
 /*
+  Function to select individual led and set current to desired value
+*/
+void max86141_led_control(uint8_t, uint8_t);
+
+/*
  *@brief Function to set all CS Pins to high
  */
 void max86141_cs_set(void);
