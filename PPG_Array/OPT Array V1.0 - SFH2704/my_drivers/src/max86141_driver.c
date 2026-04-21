@@ -134,16 +134,19 @@ void max86141_init(void) {
 
 	//Set the LED 1 Drive Current to 124mA (write 0xFF to LED1_DRV[7:0]) (1. HUMAN: 660 -> PHANTOM: 540)
         //Set the LED 5 Drive Current to 124mA (write 0xFF to LED5_DRV[7:0]) (1. HUMAN: 660 -> PHANTOM: 540)
+        //0x80
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x84, NUM_MAX_IC);
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x84, NUM_MAX_IC);
 
         //Set the LED 3 Drive Current to 124mA (write 0xFF to LED3_DRV[7:0]) (2. HUMAN: 940 -> PHANTOM: 660)
 	//Set the LED 4 Drive Current to 124mA (write 0xFF to LED4_DRV[7:0]) (2. HUMAN: 940 -> PHANTOM: 660)
+        //0x42
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x42, NUM_MAX_IC);
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x42, NUM_MAX_IC);
 
         //Set the LED 6 Drive Current to 124mA (write 0xFF to LED6_DRV[7:0]) (3. HUMAN: 850 -> PHANTOM: 630)
         //Set the LED 2 Drive Current to 124mA (write 0xFF to LED2_DRV[7:0]) (3. HUMAN: 850 -> PHANTOM: 630)
+        //0x42
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x42, NUM_MAX_IC);
 	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x42, NUM_MAX_IC);
         

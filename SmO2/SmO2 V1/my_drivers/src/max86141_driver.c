@@ -114,21 +114,16 @@ void max86141_init(void) {
         //DRV1  ->  LED1 (660nm back)     LED2 (850nm back)
         //DRV2  ->  LED3 (940nm back)     LED4 (660nm front)
         //DRV3  ->  LED5 (850nm front)    LED6 (940nm front)
-
-	//Set the LED 1 Drive Current to 124mA (write 0xFF to LED1_DRV[7:0]) (Red 660 -> Rear Position)
-        //Set the LED 2 Drive Current to 124mA (write 0xFF to LED2_DRV[7:0]) (Red 660 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x42, NUM_MAX_IC);
-
-        //Set the LED 3 Drive Current to 124mA (write 0xFF to LED3_DRV[7:0]) (IR1 850 -> Rear Position)
-        //Set the LED 4 Drive Current to 124mA (write 0xFF to LED4_DRV[7:0]) (IR1 850 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x42, NUM_MAX_IC);
-
-	//Set the LED 5 Drive Current to 124mA (write 0xFF to LED5_DRV[7:0]) (IR1 940 -> Rear Position)
-        //Set the LED 6 Drive Current to 124mA (write 0xFF to LED6_DRV[7:0]) (IR1 940 -> Front Position)
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x42, NUM_MAX_IC);
-	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x42, NUM_MAX_IC);
+        
+        // MIDDLE
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED1_PA, 0x30, NUM_MAX_IC); // LED 1
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED4_PA, 0x30, NUM_MAX_IC); // LED 2
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED2_PA, 0x30, NUM_MAX_IC); // LED 3
+        
+        // FRONT OR BACK (CURRENT FRONT)
+        spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED5_PA, 0x10, NUM_MAX_IC); // LED 4
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED3_PA, 0x08, NUM_MAX_IC); // LED 5
+	spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED6_PA, 0x10, NUM_MAX_IC); // LED 6
         
         //-------------------------------------------------------------------//
 	////////////////////FIFO Configuration/////////////////////////////////
