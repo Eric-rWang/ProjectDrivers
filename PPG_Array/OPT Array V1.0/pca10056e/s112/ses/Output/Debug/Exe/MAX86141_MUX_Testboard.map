@@ -2890,8 +2890,8 @@ Discarded input sections
  .debug_macro   0x00000000       0x1d Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
  .debug_macro   0x00000000       0x1c Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
  .debug_macro   0x00000000       0x10 Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
- .debug_line    0x00000000     0x17bc Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
- .debug_str     0x00000000    0x7fc4e Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
+ .debug_line    0x00000000     0x17c0 Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
+ .debug_str     0x00000000    0x7fc59 Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
  .comment       0x00000000       0x3e Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
  .debug_frame   0x00000000      0x7ac Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o
  .ARM.attributes
@@ -3576,8 +3576,8 @@ Discarded input sections
  .debug_macro   0x00000000       0x22 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
  .debug_macro   0x00000000       0x10 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
  .debug_macro   0x00000000       0x7c Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
- .debug_line    0x00000000     0x1780 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
- .debug_str     0x00000000    0x7fb5b Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
+ .debug_line    0x00000000     0x1784 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
+ .debug_str     0x00000000    0x7fb66 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
  .comment       0x00000000       0x3e Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
  .debug_frame   0x00000000      0x7ac Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o
  .ARM.attributes
@@ -20328,9 +20328,9 @@ Linker script and memory map
  .rodata        0x00026310       0x62 Output/Debug/Obj/MAX86141_MUX_Testboard/main.o
  *fill*         0x00026372        0x2 
  .rodata        0x00026374       0x30 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_cus.o
- .rodata        0x000263a4      0x1a4 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
- .rodata        0x00026548      0x23c Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
- *fill*         0x00026784        0xc 
+ .rodata        0x000263a4      0x1ac Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
+ .rodata        0x00026550      0x23c Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
+ *fill*         0x0002678c        0x4 
  .rodata.delay_machine_code.1
                 0x00026790        0x6 Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
  *fill*         0x00026796        0x2 
@@ -21635,128 +21635,128 @@ LOAD linker stubs
  .debug_macro   0x0002019d      0x2c8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_ble.o
  .debug_macro   0x00020465      0x27d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_soc.o
 
-.debug_line     0x00000000    0x34491
+.debug_line     0x00000000    0x34495
  .debug_line    0x00000000     0x1795 Output/Debug/Obj/MAX86141_MUX_Testboard/main.o
  .debug_line    0x00001795      0x10a Output/Debug/Obj/MAX86141_MUX_Testboard/system_control.o
  .debug_line    0x0000189f      0xf04 Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o
  .debug_line    0x000027a3     0x1291 Output/Debug/Obj/MAX86141_MUX_Testboard/bsp_btn_ble.o
  .debug_line    0x00003a34     0x1393 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_cus.o
- .debug_line    0x00004dc7     0x1bf6 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
- .debug_line    0x000069bd     0x1b8a Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
- .debug_line    0x00008547      0xf77 Output/Debug/Obj/MAX86141_MUX_Testboard/spi_driver.o
- .debug_line    0x000094be       0x92 Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf52811.o
- .debug_line    0x00009550       0xa8 Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf_common.o
- .debug_line    0x000095f8     0x3d29 Output/Debug/Obj/MAX86141_MUX_Testboard/system_nrf52811.o
- .debug_line    0x0000d321     0x134e Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o
- .debug_line    0x0000e66f     0x16e6 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advertising.o
- .debug_line    0x0000fd55      0xf8c Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_params.o
- .debug_line    0x00010ce1     0x1431 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_state.o
- .debug_line    0x00012112      0xb15 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_link_ctx_manager.o
- .debug_line    0x00012c27      0xc7b Output/Debug/Obj/MAX86141_MUX_Testboard/ble_srv_common.o
- .debug_line    0x000138a2      0xd9d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_gatt.o
- .debug_line    0x0001463f      0xbfe Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_qwr.o
- .debug_line    0x0001523d      0xf16 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_nus.o
- .debug_line    0x00016153     0x1073 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o
- .debug_line    0x000171c6      0xb0d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_spi.o
- .debug_line    0x00017cd3     0x106b Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_clock.o
- .debug_line    0x00018d3e     0x1b1f Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_gpiote.o
- .debug_line    0x0001a85d      0xb9c Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_prs.o
- .debug_line    0x0001b3f9     0x141e Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_saadc.o
- .debug_line    0x0001c817     0x1427 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_spim.o
- .debug_line    0x0001dc3e     0x1603 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_twi.o
- .debug_line    0x0001f241      0xe00 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_wdt.o
- .debug_line    0x00020041      0xefd Output/Debug/Obj/MAX86141_MUX_Testboard/app_button.o
- .debug_line    0x00020f3e      0x3b8 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error.o
- .debug_line    0x000212f6      0x41c Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_handler_gcc.o
- .debug_line    0x00021712      0xb34 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_weak.o
- .debug_line    0x00022246     0x12ca Output/Debug/Obj/MAX86141_MUX_Testboard/app_timer.o
- .debug_line    0x00023510      0x947 Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o
- .debug_line    0x00023e57     0x1d2b Output/Debug/Obj/MAX86141_MUX_Testboard/fds.o
- .debug_line    0x00025b82      0x753 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o
- .debug_line    0x000262d5      0x6c4 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atflags.o
- .debug_line    0x00026999      0x642 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atomic.o
- .debug_line    0x00026fdb      0xa6d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_balloc.o
- .debug_line    0x00027a48      0x487 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf.o
- .debug_line    0x00027ecf      0x768 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf_format.o
- .debug_line    0x00028637      0x8ad Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage.o
- .debug_line    0x00028ee4      0xdac Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage_sd.o
- .debug_line    0x00029c90      0xb1d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_memobj.o
- .debug_line    0x0002a7ad      0xeec Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_pwr_mgmt.o
- .debug_line    0x0002b699      0xbd3 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ringbuf.o
- .debug_line    0x0002c26c      0x4ae Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_section_iter.o
- .debug_line    0x0002c71a      0x47a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_strerror.o
- .debug_line    0x0002cb94      0xd77 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_rtt.o
- .debug_line    0x0002d90b      0xab5 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_serial.o
- .debug_line    0x0002e3c0      0xa36 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_default_backends.o
- .debug_line    0x0002edf6     0x144a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_frontend.o
- .debug_line    0x00030240      0xc01 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_str_formatter.o
- .debug_line    0x00030e41      0xf5a Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT.o
- .debug_line    0x00031d9b      0xe43 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh.o
- .debug_line    0x00032bde      0xd75 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_ble.o
- .debug_line    0x00033953      0x9aa Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_soc.o
- .debug_line    0x000342fd      0x194 Output/Debug/Obj/MAX86141_MUX_Testboard/thumb_crt0.o
+ .debug_line    0x00004dc7     0x1bfa Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
+ .debug_line    0x000069c1     0x1b8a Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
+ .debug_line    0x0000854b      0xf77 Output/Debug/Obj/MAX86141_MUX_Testboard/spi_driver.o
+ .debug_line    0x000094c2       0x92 Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf52811.o
+ .debug_line    0x00009554       0xa8 Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf_common.o
+ .debug_line    0x000095fc     0x3d29 Output/Debug/Obj/MAX86141_MUX_Testboard/system_nrf52811.o
+ .debug_line    0x0000d325     0x134e Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o
+ .debug_line    0x0000e673     0x16e6 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advertising.o
+ .debug_line    0x0000fd59      0xf8c Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_params.o
+ .debug_line    0x00010ce5     0x1431 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_state.o
+ .debug_line    0x00012116      0xb15 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_link_ctx_manager.o
+ .debug_line    0x00012c2b      0xc7b Output/Debug/Obj/MAX86141_MUX_Testboard/ble_srv_common.o
+ .debug_line    0x000138a6      0xd9d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_gatt.o
+ .debug_line    0x00014643      0xbfe Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_qwr.o
+ .debug_line    0x00015241      0xf16 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_nus.o
+ .debug_line    0x00016157     0x1073 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o
+ .debug_line    0x000171ca      0xb0d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_spi.o
+ .debug_line    0x00017cd7     0x106b Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_clock.o
+ .debug_line    0x00018d42     0x1b1f Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_gpiote.o
+ .debug_line    0x0001a861      0xb9c Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_prs.o
+ .debug_line    0x0001b3fd     0x141e Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_saadc.o
+ .debug_line    0x0001c81b     0x1427 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_spim.o
+ .debug_line    0x0001dc42     0x1603 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_twi.o
+ .debug_line    0x0001f245      0xe00 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_wdt.o
+ .debug_line    0x00020045      0xefd Output/Debug/Obj/MAX86141_MUX_Testboard/app_button.o
+ .debug_line    0x00020f42      0x3b8 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error.o
+ .debug_line    0x000212fa      0x41c Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_handler_gcc.o
+ .debug_line    0x00021716      0xb34 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_weak.o
+ .debug_line    0x0002224a     0x12ca Output/Debug/Obj/MAX86141_MUX_Testboard/app_timer.o
+ .debug_line    0x00023514      0x947 Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o
+ .debug_line    0x00023e5b     0x1d2b Output/Debug/Obj/MAX86141_MUX_Testboard/fds.o
+ .debug_line    0x00025b86      0x753 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o
+ .debug_line    0x000262d9      0x6c4 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atflags.o
+ .debug_line    0x0002699d      0x642 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atomic.o
+ .debug_line    0x00026fdf      0xa6d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_balloc.o
+ .debug_line    0x00027a4c      0x487 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf.o
+ .debug_line    0x00027ed3      0x768 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf_format.o
+ .debug_line    0x0002863b      0x8ad Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage.o
+ .debug_line    0x00028ee8      0xdac Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage_sd.o
+ .debug_line    0x00029c94      0xb1d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_memobj.o
+ .debug_line    0x0002a7b1      0xeec Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_pwr_mgmt.o
+ .debug_line    0x0002b69d      0xbd3 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ringbuf.o
+ .debug_line    0x0002c270      0x4ae Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_section_iter.o
+ .debug_line    0x0002c71e      0x47a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_strerror.o
+ .debug_line    0x0002cb98      0xd77 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_rtt.o
+ .debug_line    0x0002d90f      0xab5 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_serial.o
+ .debug_line    0x0002e3c4      0xa36 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_default_backends.o
+ .debug_line    0x0002edfa     0x144a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_frontend.o
+ .debug_line    0x00030244      0xc01 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_str_formatter.o
+ .debug_line    0x00030e45      0xf5a Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT.o
+ .debug_line    0x00031d9f      0xe43 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh.o
+ .debug_line    0x00032be2      0xd75 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_ble.o
+ .debug_line    0x00033957      0x9aa Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_soc.o
+ .debug_line    0x00034301      0x194 Output/Debug/Obj/MAX86141_MUX_Testboard/thumb_crt0.o
 
-.debug_str      0x00000000    0x9ded5
- .debug_str     0x00000000    0x9ded5 Output/Debug/Obj/MAX86141_MUX_Testboard/main.o
-                              0x800a1 (size before relaxing)
- .debug_str     0x0009ded5     0x2ffa Output/Debug/Obj/MAX86141_MUX_Testboard/system_control.o
- .debug_str     0x0009ded5    0x72673 Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o
- .debug_str     0x0009ded5    0x7915c Output/Debug/Obj/MAX86141_MUX_Testboard/bsp_btn_ble.o
- .debug_str     0x0009ded5    0x7c611 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_cus.o
- .debug_str     0x0009ded5    0x80e99 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
- .debug_str     0x0009ded5    0x807ba Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
- .debug_str     0x0009ded5    0x767ff Output/Debug/Obj/MAX86141_MUX_Testboard/spi_driver.o
- .debug_str     0x0009ded5       0xcc Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf52811.o
- .debug_str     0x0009ded5       0xce Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf_common.o
- .debug_str     0x0009ded5    0x61056 Output/Debug/Obj/MAX86141_MUX_Testboard/system_nrf52811.o
- .debug_str     0x0009ded5    0x6f974 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o
- .debug_str     0x0009ded5    0x736ef Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advertising.o
- .debug_str     0x0009ded5    0x710fa Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_params.o
- .debug_str     0x0009ded5    0x7192b Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_state.o
- .debug_str     0x0009ded5    0x6df0c Output/Debug/Obj/MAX86141_MUX_Testboard/ble_link_ctx_manager.o
- .debug_str     0x0009ded5    0x67891 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_srv_common.o
- .debug_str     0x0009ded5    0x716c8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_gatt.o
- .debug_str     0x0009ded5    0x6ff6d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_qwr.o
- .debug_str     0x0009ded5    0x73230 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_nus.o
- .debug_str     0x0009ded5    0x74328 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o
- .debug_str     0x0009ded5    0x714dc Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_spi.o
- .debug_str     0x0009ded5    0x73a94 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_clock.o
- .debug_str     0x0009ded5    0x74ea8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_gpiote.o
- .debug_str     0x0009ded5    0x7326b Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_prs.o
- .debug_str     0x0009ded5    0x74b79 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_saadc.o
- .debug_str     0x0009ded5    0x74715 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_spim.o
- .debug_str     0x0009ded5    0x74a0a Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_twi.o
- .debug_str     0x0009ded5    0x736f8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_wdt.o
- .debug_str     0x0009ded5    0x743a2 Output/Debug/Obj/MAX86141_MUX_Testboard/app_button.o
- .debug_str     0x0009ded5    0x581bc Output/Debug/Obj/MAX86141_MUX_Testboard/app_error.o
- .debug_str     0x0009ded5    0x67d80 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_handler_gcc.o
- .debug_str     0x0009ded5    0x6df43 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_weak.o
- .debug_str     0x0009ded5    0x712a3 Output/Debug/Obj/MAX86141_MUX_Testboard/app_timer.o
- .debug_str     0x0009ded5    0x5a1d4 Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o
- .debug_str     0x0009ded5    0x6bb97 Output/Debug/Obj/MAX86141_MUX_Testboard/fds.o
- .debug_str     0x0009ded5    0x6a699 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o
- .debug_str     0x0009ded5    0x67c35 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atflags.o
- .debug_str     0x0009ded5    0x67f65 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atomic.o
- .debug_str     0x0009ded5    0x6cd7f Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_balloc.o
- .debug_str     0x0009ded5    0x67b0c Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf.o
- .debug_str     0x0009ded5    0x67ffd Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf_format.o
- .debug_str     0x0009ded5    0x6a540 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage.o
- .debug_str     0x0009ded5    0x6b56c Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage_sd.o
- .debug_str     0x0009ded5    0x6b0d4 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_memobj.o
- .debug_str     0x0009ded5    0x751f9 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_pwr_mgmt.o
- .debug_str     0x0009ded5    0x699dd Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ringbuf.o
- .debug_str     0x0009ded5    0x67d78 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_section_iter.o
- .debug_str     0x0009ded5    0x6792a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_strerror.o
- .debug_str     0x0009ded5    0x741c8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_rtt.o
- .debug_str     0x0009ded5    0x6cf96 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_serial.o
- .debug_str     0x0009ded5    0x6cd59 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_default_backends.o
- .debug_str     0x0009ded5    0x6e37f Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_frontend.o
- .debug_str     0x0009ded5    0x6d053 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_str_formatter.o
- .debug_str     0x0009ded5    0x62280 Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT.o
- .debug_str     0x0009ded5    0x6d865 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh.o
- .debug_str     0x0009ded5    0x7213d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_ble.o
- .debug_str     0x0009ded5    0x6c453 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_soc.o
- .debug_str     0x0009ded5       0xc1 Output/Debug/Obj/MAX86141_MUX_Testboard/thumb_crt0.o
+.debug_str      0x00000000    0x9dedc
+ .debug_str     0x00000000    0x9dedc Output/Debug/Obj/MAX86141_MUX_Testboard/main.o
+                              0x800a4 (size before relaxing)
+ .debug_str     0x0009dedc     0x2ffa Output/Debug/Obj/MAX86141_MUX_Testboard/system_control.o
+ .debug_str     0x0009dedc    0x72673 Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o
+ .debug_str     0x0009dedc    0x7915c Output/Debug/Obj/MAX86141_MUX_Testboard/bsp_btn_ble.o
+ .debug_str     0x0009dedc    0x7c611 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_cus.o
+ .debug_str     0x0009dedc    0x80ea4 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o
+ .debug_str     0x0009dedc    0x807bd Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o
+ .debug_str     0x0009dedc    0x767ff Output/Debug/Obj/MAX86141_MUX_Testboard/spi_driver.o
+ .debug_str     0x0009dedc       0xcc Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf52811.o
+ .debug_str     0x0009dedc       0xce Output/Debug/Obj/MAX86141_MUX_Testboard/ses_startup_nrf_common.o
+ .debug_str     0x0009dedc    0x61056 Output/Debug/Obj/MAX86141_MUX_Testboard/system_nrf52811.o
+ .debug_str     0x0009dedc    0x6f974 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o
+ .debug_str     0x0009dedc    0x736ef Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advertising.o
+ .debug_str     0x0009dedc    0x710fa Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_params.o
+ .debug_str     0x0009dedc    0x7192b Output/Debug/Obj/MAX86141_MUX_Testboard/ble_conn_state.o
+ .debug_str     0x0009dedc    0x6df0c Output/Debug/Obj/MAX86141_MUX_Testboard/ble_link_ctx_manager.o
+ .debug_str     0x0009dedc    0x67891 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_srv_common.o
+ .debug_str     0x0009dedc    0x716c8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_gatt.o
+ .debug_str     0x0009dedc    0x6ff6d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ble_qwr.o
+ .debug_str     0x0009dedc    0x73230 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_nus.o
+ .debug_str     0x0009dedc    0x74328 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o
+ .debug_str     0x0009dedc    0x714dc Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_spi.o
+ .debug_str     0x0009dedc    0x73a94 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_clock.o
+ .debug_str     0x0009dedc    0x74ea8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_gpiote.o
+ .debug_str     0x0009dedc    0x7326b Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_prs.o
+ .debug_str     0x0009dedc    0x74b79 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_saadc.o
+ .debug_str     0x0009dedc    0x74715 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_spim.o
+ .debug_str     0x0009dedc    0x74a0a Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_twi.o
+ .debug_str     0x0009dedc    0x736f8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrfx_wdt.o
+ .debug_str     0x0009dedc    0x743a2 Output/Debug/Obj/MAX86141_MUX_Testboard/app_button.o
+ .debug_str     0x0009dedc    0x581bc Output/Debug/Obj/MAX86141_MUX_Testboard/app_error.o
+ .debug_str     0x0009dedc    0x67d80 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_handler_gcc.o
+ .debug_str     0x0009dedc    0x6df43 Output/Debug/Obj/MAX86141_MUX_Testboard/app_error_weak.o
+ .debug_str     0x0009dedc    0x712a3 Output/Debug/Obj/MAX86141_MUX_Testboard/app_timer.o
+ .debug_str     0x0009dedc    0x5a1d4 Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o
+ .debug_str     0x0009dedc    0x6bb97 Output/Debug/Obj/MAX86141_MUX_Testboard/fds.o
+ .debug_str     0x0009dedc    0x6a699 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o
+ .debug_str     0x0009dedc    0x67c35 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atflags.o
+ .debug_str     0x0009dedc    0x67f65 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atomic.o
+ .debug_str     0x0009dedc    0x6cd7f Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_balloc.o
+ .debug_str     0x0009dedc    0x67b0c Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf.o
+ .debug_str     0x0009dedc    0x67ffd Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fprintf_format.o
+ .debug_str     0x0009dedc    0x6a540 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage.o
+ .debug_str     0x0009dedc    0x6b56c Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_fstorage_sd.o
+ .debug_str     0x0009dedc    0x6b0d4 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_memobj.o
+ .debug_str     0x0009dedc    0x751f9 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_pwr_mgmt.o
+ .debug_str     0x0009dedc    0x699dd Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_ringbuf.o
+ .debug_str     0x0009dedc    0x67d78 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_section_iter.o
+ .debug_str     0x0009dedc    0x6792a Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_strerror.o
+ .debug_str     0x0009dedc    0x741c8 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_rtt.o
+ .debug_str     0x0009dedc    0x6cf96 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_backend_serial.o
+ .debug_str     0x0009dedc    0x6cd59 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_default_backends.o
+ .debug_str     0x0009dedc    0x6e37f Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_frontend.o
+ .debug_str     0x0009dedc    0x6d053 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_log_str_formatter.o
+ .debug_str     0x0009dedc    0x62280 Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT.o
+ .debug_str     0x0009dedc    0x6d865 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh.o
+ .debug_str     0x0009dedc    0x7213d Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_ble.o
+ .debug_str     0x0009dedc    0x6c453 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh_soc.o
+ .debug_str     0x0009dedc       0xc1 Output/Debug/Obj/MAX86141_MUX_Testboard/thumb_crt0.o
 
 .comment        0x00000000       0x74
  .comment       0x00000000       0x74 Output/Debug/Obj/MAX86141_MUX_Testboard/main.o

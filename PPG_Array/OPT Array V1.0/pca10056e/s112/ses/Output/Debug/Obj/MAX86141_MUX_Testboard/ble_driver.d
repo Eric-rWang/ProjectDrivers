@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o: \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\projects\PPG_Array\MAX86141\ MUX\ Array\ V3.1\my_drivers\src\ble_driver.c \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\my_drivers\src\ble_driver.c \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
