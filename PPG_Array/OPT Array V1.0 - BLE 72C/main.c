@@ -48,11 +48,14 @@
  * This application uses the @ref srvlib_conn_params module.
  */
 
-
-#include "app_scheduler.h"
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 #include "nrf_temp.h"
+#include "app_scheduler.h"
+#include "app_timer.h"
+
+#define SCHED_MAX_EVENT_DATA_SIZE  APP_TIMER_SCHED_EVENT_DATA_SIZE
+#define SCHED_QUEUE_SIZE           10
  
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -66,6 +69,12 @@
 #include "helper_functions.h"
 #include "system_control.h"
 
+/**@brief Function for initializing the scheduler module.
+ */
+static void scheduler_init(void)
+{
+    APP_SCHED_INIT(SCHED_MAX_EVENT_DATA_SIZE, SCHED_QUEUE_SIZE);
+}
 
 /**@brief Function for initializing the nrf log module.
  */
@@ -140,6 +149,7 @@ int main(void) {
     // Initialize.
     log_init();
     timers_init();
+    scheduler_init();  
     power_management_init();
     ble_init(nus_data_received, cus_data_received);
 
@@ -147,12 +157,20 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     spi_init();
+    
+    const uint8_t* PIN_CS_PPG = max86141_get_cs_pins();
+    // ADD THIS: Ensure all CS pins are configured as outputs and set HIGH
+    for(int i = 0; i < NUM_MAX_IC; i++) {
+        nrf_gpio_cfg_output(PIN_CS_PPG[i]);
+        nrf_gpio_pin_set(PIN_CS_PPG[i]); 
+    }
 
-    max86141_init();
+    max86141_cs_pin_test();            // 1. Run first — checks wiring
+    max86141_init();                   // 2. Safely configure the sensor and start FIFO
 
-    max86141_cs_pin_test();            // Run first — checks wiring
-    max86141_dump_all_ic_registers();  // Verifies all configs match
-	
+    max86141_flush_all_fifos();
+    max86141_dump_all_ic_registers();  // 3. Verifies all configs match
+    
     // Start execution.
     advertising_start();
 
@@ -160,7 +178,7 @@ int main(void) {
     {
         max86141_process_data();
         NRF_LOG_PROCESS();
-        app_sched_execute();    // ADD: process queued BLE events
+        app_sched_execute();    // Process queued BLE events
         sd_app_evt_wait();
     }
 }

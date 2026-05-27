@@ -1,6 +1,6 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_srv_common.o: \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\ble\common\ble_srv_common.c \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\ble\common\ble_srv_common.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\ble\common\ble_srv_common.c \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\ble\common\ble_srv_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \

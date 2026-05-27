@@ -1,6 +1,6 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o: \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\app_util_platform.c \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\app_util_platform.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\app_util_platform.c \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\app_util_platform.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
@@ -25,11 +25,11 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/app_util_platform.o: \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error_soc.h \
  ../../../../../../components/softdevice/s112/headers/nrf_nvic.h \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\nrf_assert.h \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\app_error.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\nrf_assert.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\app_error.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdio.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\sdk_errors.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\sdk_errors.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\nordic_common.h \
- C:\Users\Jack\ Son\Documents\Nordic\ SDK\ 15.3\components\libraries\util\app_error_weak.h
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\nordic_common.h \
+ C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\components\libraries\util\app_error_weak.h

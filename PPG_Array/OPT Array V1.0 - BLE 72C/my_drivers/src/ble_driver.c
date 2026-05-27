@@ -80,54 +80,59 @@ static void try_drain_tx(void){
     }
 }
 
-void send_data_nus(uint8_t* data_array, uint16_t length) {
-    if (length == 0) return;
-
-    // Guard against MTU not yet negotiated
-    if (length > m_ble_nus_max_data_len) {
-        NRF_LOG_WARNING("NUS frame %u > MTU payload %u — dropping",
-                        length, m_ble_nus_max_data_len);
-        return;
-    }
-
-    txq_push(data_array, length);
-    try_drain_tx();
-}
-
 static uint8_t poopie = 0; 
 
-void nus_add_to_buffer(uint8_t* data, uint16_t length) {
-    // The controller iterates through the provided length, filling the BLE buffer.
-    for(int i = 0; i < length; i ++, ble_buffer_index ++) {
-        if (ble_buffer_index < NUS_PACKET_SIZE) {
-            ble_buffer[ble_buffer_index] = data[i];
-        }
-    }
+void nus_add_to_buffer(const uint8_t* data, uint16_t length) {
+    // The maximum amount of actual data we can hold before the counter byte
+    const uint16_t DATA_LIMIT = NUS_PACKET_SIZE - 1;
 
-    // After two 108-byte passes, the index reaches 216.
-    if(ble_buffer_index == NUS_PACKET_SIZE - 1) {
-        // The 217th byte is assigned the wrapping counter value.
-        ble_buffer[NUS_PACKET_SIZE - 1] = poopie;
-        nus_send_buffer();
-        poopie++; 
+    // Use a while loop to handle any length cleanly, even if it exceeds the buffer
+    while (length > 0) {
+        
+        // 1. Calculate available space in the current frame
+        uint16_t space_left = DATA_LIMIT - ble_buffer_index;
+        
+        // 2. Determine how many bytes we can safely copy right now
+        uint16_t bytes_to_copy = (length < space_left) ? length : space_left;
+
+        // 3. Block copy the data. This compiles to highly optimized hardware instructions.
+        memcpy(&ble_buffer[ble_buffer_index], data, bytes_to_copy);
+        
+        // 4. Advance our pointers and counters
+        ble_buffer_index += bytes_to_copy;
+        data             += bytes_to_copy;
+        length           -= bytes_to_copy;
+
+        // 5. If the data portion is full, append the counter and send
+        if (ble_buffer_index == DATA_LIMIT) {
+            ble_buffer[DATA_LIMIT] = poopie++;
+            nus_send_buffer(); // Make sure function resets ble_buffer_index = 0
+        }
     }
 }
 
 void nus_send_buffer(void) {
-        
-        // RTT Writing: comment out for BLE APP
-        if (DEBUG_RTT) {
-          SEGGER_RTT_Write(1, ble_buffer, NUS_PACKET_SIZE);
-        }
 
-        if (m_conn_handle == BLE_CONN_HANDLE_INVALID){
-            ble_buffer_index = 0; // not connected; drop current assembled frame
-            return;
-        }
-        
-        txq_push(ble_buffer, NUS_PACKET_SIZE);
-        ble_buffer_index = 0;   // reset assembler regardless
-        try_drain_tx();         // attempt to send now; if busy, will go on next TX_COMPLETE
+    if (m_conn_handle == BLE_CONN_HANDLE_INVALID) {
+        ble_buffer_index = 0; // not connected; drop current assembled frame
+        // Optional: NRF_LOG_DEBUG("Drop: Not connected");
+        return;
+    }
+
+    // 1. Push to the transmit queue
+    txq_push(ble_buffer, NUS_PACKET_SIZE);
+    
+    // 2. Reset assembler
+    ble_buffer_index = 0;   
+    
+    // 3. Log that the packet was successfully queued
+    NRF_LOG_INFO("Data queued for TX (%d bytes)", NUS_PACKET_SIZE);
+    
+    // Note: If this is inside an interrupt, remove NRF_LOG_FLUSH()
+    NRF_LOG_FLUSH(); 
+
+    // 4. Attempt to push the queue over the air
+    try_drain_tx();         
 }
 
 void send_data_cus(tms_msg_tx_t message) {
@@ -164,19 +169,24 @@ void  ble_init(ble_nus_rx_handler_t ble_nus_rx_handler, ble_cus_rx_handler_t ble
 	ble_stack_init();
 	NRF_LOG_INFO("\tBLE stack initialzied");
 	NRF_LOG_FLUSH();
-    gap_params_init();
+
+        gap_params_init();
 	NRF_LOG_INFO("\tGAP parameters initialized");
 	NRF_LOG_FLUSH();
-    gatt_init();
+
+        gatt_init();
 	NRF_LOG_INFO("\tGatt initialized.");
 	NRF_LOG_FLUSH();
-    services_init();
+
+        services_init();
 	NRF_LOG_INFO("\tServices initialized.");
 	NRF_LOG_FLUSH();
-    advertising_init();
+
+        advertising_init();
 	NRF_LOG_INFO("\tAdvertising initialized");
 	NRF_LOG_FLUSH();
-    conn_params_init();
+
+        conn_params_init();
 	NRF_LOG_INFO("\tConnection parameters intialized");
 	NRF_LOG_FLUSH();
 }
@@ -444,11 +454,12 @@ static void ble_stack_init(void)
 
     // ADD: bump notification queue depth so multiple hvx calls
     // can be in flight per connection event
-    ble_cfg_t ble_cfg = {0};
-    ble_cfg.conn_cfg.conn_cfg_tag = APP_BLE_CONN_CFG_TAG;
-    ble_cfg.conn_cfg.params.gatts_conn_cfg.hvn_tx_queue_size = 7;
-    err_code = sd_ble_cfg_set(BLE_CONN_CFG_GATTS, &ble_cfg, ram_start);
-    APP_ERROR_CHECK(err_code);
+
+    //ble_cfg_t ble_cfg = {0};
+    //ble_cfg.conn_cfg.conn_cfg_tag = APP_BLE_CONN_CFG_TAG;
+    //ble_cfg.conn_cfg.params.gatts_conn_cfg.hvn_tx_queue_size = 7;
+    //err_code = sd_ble_cfg_set(BLE_CONN_CFG_GATTS, &ble_cfg, ram_start);
+    //APP_ERROR_CHECK(err_code);
 
     // Enable BLE stack.
     err_code = nrf_sdh_ble_enable(&ram_start);

@@ -1,15 +1,15 @@
 MEMORY
 {
   UNPLACED_SECTIONS (wx) : ORIGIN = 0x100000000, LENGTH = 0
-  RAM1 (wx) : ORIGIN = 0x20000000, LENGTH = 0x00006000
+  RAM1 (wx) : ORIGIN = 0x200024a0, LENGTH = 0x00003b60
   FLASH (wx) : ORIGIN = 0x00000000, LENGTH = 0x00030000
 }
 
 SECTIONS
 {
-  __RAM1_segment_start__ = 0x20000000;
+  __RAM1_segment_start__ = 0x200024a0;
   __RAM1_segment_end__ = 0x20006000;
-  __RAM1_segment_size__ = 0x00006000;
+  __RAM1_segment_size__ = 0x00003b60;
   __FLASH_segment_start__ = 0x00000000;
   __FLASH_segment_end__ = 0x00030000;
   __FLASH_segment_size__ = 0x00030000;
@@ -20,12 +20,12 @@ SECTIONS
   __STACKSIZE_PROCESS__ = 0;
   __STACKSIZE__ = 2048;
 
-  __reserved_ram_load_start__ = 0x20000000;
-  .reserved_ram 0x20000000 (NOLOAD) : AT(0x20000000)
+  __reserved_ram_load_start__ = 0x200024A0;
+  .reserved_ram 0x200024A0 (NOLOAD) : AT(0x200024A0)
   {
     __reserved_ram_start__ = .;
     *(.reserved_ram .reserved_ram.*)
-    . = MAX(__reserved_ram_start__ + 0x200023A0-0x20000000 , .);
+    . = MAX(__reserved_ram_start__ + 0x200024A0-0x200024A0 , .);
   }
   __reserved_ram_end__ = __reserved_ram_start__ + SIZEOF(.reserved_ram);
   __reserved_ram_size__ = SIZEOF(.reserved_ram);
@@ -33,10 +33,10 @@ SECTIONS
 
   . = ASSERT(__reserved_ram_start__ == __reserved_ram_end__ || (__reserved_ram_end__ - __RAM1_segment_start__) <= __RAM1_segment_size__ , "error: .reserved_ram is too large to fit in RAM1 memory segment");
 
-  . = ASSERT(__reserved_ram_size__ <= 0x200023A0-0x20000000 , "error: .reserved_ram section is larger than specified size");
+  . = ASSERT(__reserved_ram_size__ <= 0x200024A0-0x200024A0 , "error: .reserved_ram section is larger than specified size");
 
-  __vectors_ram_load_start__ = 0x200023A0;
-  .vectors_ram 0x200023A0 (NOLOAD) : AT(0x200023A0)
+  __vectors_ram_load_start__ = 0x200024A0;
+  .vectors_ram 0x200024A0 (NOLOAD) : AT(0x200024A0)
   {
     __vectors_ram_start__ = .;
     __app_ram_start__ =   __vectors_ram_start__;

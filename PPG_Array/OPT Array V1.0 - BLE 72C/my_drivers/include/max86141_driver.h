@@ -13,8 +13,15 @@
 #define SPI_CS_5                                                    21
 #define SPI_CS_6                                                    18
 
+// SAMPLING_PATTERN
+// 0: Diagonals Only
+// 1: Across Only
+// 2: ALL
+#define SAMPLING_PATTERN                                        2
+
 ////////////Constant Variables //////////////
 extern uint8_t PPG_CS_PPG[NUM_MAX_IC];
+#define FIFO_TIMEOUT_RETRIES 1000                 // Adjust this if SPI is exceptionally fast/slow
 
 ////////////Pre-processor defines////////////
 #define MAX86141_FIFO_SAMPLES			12 //MAX86141_PACKET_SIZE_BYTES / 3		//3 bytes per sample       originally 12
@@ -93,6 +100,10 @@ extern uint8_t PPG_CS_PPG[NUM_MAX_IC];
 //Part ID
 #define MAX86141_PART_ID			0xFF
 
+/*
+ *@brief Function to get cs pins.
+ */
+const uint8_t* max86141_get_cs_pins(void);
 
 /*
  *@brief Function to setup the internal registers in the MAX86141
@@ -110,13 +121,6 @@ void max86141_cs_set(void);
 void max86141_cs_clear(void);
 
 /*
- *@brief Function to verify connection between the MAX ICs and NRF
- */
-void max86141_burst_integrity(void);
-
-bool max86141_verify_integrity(uint16_t cs_pin);
-
-/*
  *@brief Function to setup the GPIOs in the nRF to detect interrupts from the MAX86141
  */
 void max86141_setup_interrupts(void);
@@ -130,9 +134,11 @@ void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t 
  *@brief Function for reading data from the FIFO of the MAX86141
  */
 
+void max86141_flush_all_fifos(void);
+
 void max86141_process_data(void);
 
-void max86141_fifo_parser(uint8_t PIN_CS_PPG);
+bool max86141_fifo_parser(uint8_t PIN_CS_PPG);
 
 void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins);
 

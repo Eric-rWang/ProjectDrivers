@@ -15,8 +15,30 @@ uint8_t PIN_CS_PPG[NUM_MAX_IC] = {
 };
 
 static bool max86141_init_success = false;
-volatile bool ppg_data_ready = false;
 uint8_t skipped_nrf_temp_meas = 0;
+
+// Create a function that hands out a read-only pointer to the array
+const uint8_t* max86141_get_cs_pins(void) {
+    return PIN_CS_PPG;
+}
+
+void max86141_flush_all_fifos(void) {
+    // Bit 4 in FIFO_CFG2 (0x0A) is the FLUSH_FIFO command
+    const uint8_t FLUSH_FIFO_BIT = (1 << 4); 
+
+    for (uint8_t i = 0; i < NUM_MAX_IC; i++) {
+        // 1. Read current config so we don't overwrite other settings
+        uint8_t current_cfg2 = spi_read_reg(PIN_CS_PPG[i], MAX86141_FIFO_CONFIGURATION_2);
+        
+        // 2. Set the flush bit and write it back
+        spi_write_reg(PIN_CS_PPG[i], MAX86141_FIFO_CONFIGURATION_2, current_cfg2 | FLUSH_FIFO_BIT);
+        
+        // The MAX86141 automatically clears this bit back to 0 once the flush is complete.
+    }
+    
+    NRF_LOG_INFO("All 6 FIFOs flushed and synchronized.");
+    NRF_LOG_FLUSH();
+}
 
 void max86141_config_pin(void) {
       	//Set a GPIO as the CS control
@@ -51,9 +73,6 @@ void max86141_config_pin(void) {
 void max86141_init(void) {
         //Configure pins
         max86141_config_pin();
-
-        //Validate hardware connectivity
-        max86141_burst_integrity();
 
         //Set up a GPIO for receiving interrupts
 	max86141_setup_interrupts();
@@ -211,135 +230,107 @@ void max86141_cs_clear(void) {
         }
 }
 
-void max86141_burst_integrity(void) {
-        bool init;
-
-        for (int i = 0; i < NUM_MAX_IC; i++) {
-            init = max86141_verify_integrity(PIN_CS_PPG[i]);
-            if (!init) {
-                NRF_LOG_INFO("Pin: 0x%02x Failed Verification", PIN_CS_PPG[i]);
-            } else if (init) {
-                NRF_LOG_INFO("Pin: 0x%02x Passed Verification", PIN_CS_PPG[i]);
-            }
-            nrf_delay_ms(10);
-        }
-
-        NRF_LOG_INFO("Burst Verification Complete");
-        NRF_LOG_FLUSH();
-}
-
-bool max86141_verify_integrity(uint16_t cs_pin) {
-        max86141_cs_set();
-
-        uint8_t part_id = spi_read_reg(cs_pin, 0xFF);
-        bool init;
-
-        if (part_id != 0x25) {
-        	init =  false;
-        } else {
-            init =  true;
-        }
-        
-        max86141_cs_clear();
-        nrf_delay_ms(1);
-
-        return init;
-}
-
-uint8_t test[3] = {0, 0, 0};
-
-uint32_t poop = 0;
-
+volatile bool ppg_data_ready = false;
 bool MAX86141_NOT_FULL = false;
 
 void max86141_setup_interrupts(void) {
-	//Interrupt will bring INT_PPG low. We also need to enable the internal pullup resistor.
-	ret_code_t err_code = nrf_drv_gpiote_init();
-        APP_ERROR_CHECK(err_code);
+    ret_code_t err_code = nrf_drv_gpiote_init();
+    APP_ERROR_CHECK(err_code);
 
-        nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
-        in_config.pull = NRF_GPIO_PIN_PULLUP;
+    nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
+    in_config.pull = NRF_GPIO_PIN_PULLUP;
 
-        err_code = nrf_drv_gpiote_in_init(PIN_INT_PPG, &in_config, max86141_interrupt_handler);
-        APP_ERROR_CHECK(err_code);
+    err_code = nrf_drv_gpiote_in_init(PIN_INT_PPG, &in_config, max86141_interrupt_handler);
+    APP_ERROR_CHECK(err_code);
 
-        nrf_drv_gpiote_in_event_enable(PIN_INT_PPG, true);
+    nrf_drv_gpiote_in_event_enable(PIN_INT_PPG, true);
 
-        NRF_LOG_INFO("INT Setup successful");
-	NRF_LOG_FLUSH();
+    NRF_LOG_INFO("INT Setup successful");
+    NRF_LOG_FLUSH();
 }
 
 void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-	//Read status (Read 0x00 and put in intStatus)	
-	ppg_data_ready = true;
+    //Read status (Read 0x00 and put in intStatus)	
+    ppg_data_ready = true;
 }
 
 void max86141_process_data(void) {
     if (!ppg_data_ready) return;
     ppg_data_ready = false;
  
-    // Safe to do SPI here — we're in thread context,
-    // so the SPI completion IRQ can preempt us normally.
+    // 1. Clear the hardware interrupt by reading Status 1
+    // (Assuming SPI_CS_6 is the specific chip wired to the nRF's INT pin)
     uint8_t intStatus = spi_read_reg(SPI_CS_6, MAX86141_INTERRUPT_STATUS_1);
  
+    // 2. If the A_FULL (FIFO Almost Full) flag is set, start reading
     if (intStatus & 0x80) {
         max86141_fifo_multi_parser(PIN_CS_PPG, NUM_MAX_IC);
     }
 }
 
-void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins) {
-        for(int i = 0; i < num_pins; i++) {
-            max86141_fifo_parser(PINS_CS_PPG[i]);
+// Multi-parser now respects the abort signal
+void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG, uint8_t num_pins) {
+    for(int i = 0; i < num_pins; i++) {
+        // If the parser returns false (timeout occurred), abort the whole cycle
+        if (!max86141_fifo_parser(PINS_CS_PPG[i])) {
+            break; 
         }
+    }
 }
 
-void max86141_fifo_parser(uint8_t PIN_CS_PPG) {
-	uint8_t sampleCnt = spi_read_reg(PIN_CS_PPG,MAX86141_FIFO_DATA_COUNTER); // sampleCnt should be the same value as FIFO_SAMPLES;
+static const uint8_t drop_masks[3][12] = {
+    { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0 }, // 0: Diagonal (keeps 6 samples)
+    { 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1 }, // 1: Across   (keeps 6 samples)
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }  // 2: All      (keeps 12 samples)
+};
 
-        //NRF_LOG_INFO("Data in FIFO (%d), expected (%d)", sampleCnt, MAX86141_FIFO_SAMPLES);
+// Now returns a bool: true on success, false on timeout/flush
+bool max86141_fifo_parser(uint8_t PIN_CS_PPG) {
+    uint8_t sampleCnt = 0;
+    uint16_t timeout_tracker = 0;
 
-	if (sampleCnt < MAX86141_FIFO_SAMPLES) {
-		NRF_LOG_INFO("CS: (%d) ~ Data in FIFO (%d) is NOT as expected (%d)", PIN_CS_PPG, sampleCnt, MAX86141_FIFO_SAMPLES);
-		NRF_LOG_FLUSH();
-                MAX86141_NOT_FULL = true;
-	} else {
-                //NRF_LOG_INFO("CS: (%d) ~ Data in FIFO (%d) IS as expected (%d)", PIN_CS_PPG, sampleCnt, MAX86141_FIFO_SAMPLES);
-		//NRF_LOG_FLUSH();
+    // 1. Wait for this IC to safely reach the required samples
+    while (sampleCnt < MAX86141_FIFO_SAMPLES) {
+        sampleCnt = spi_read_reg(PIN_CS_PPG, MAX86141_FIFO_DATA_COUNTER);
+        timeout_tracker++;
+
+        // If it takes too long, we've lost synchronization
+        if (timeout_tracker > FIFO_TIMEOUT_RETRIES) {
+            NRF_LOG_WARNING("CS: (%d) ~ Timeout! Sync lost. Flushing.", PIN_CS_PPG);
+            NRF_LOG_FLUSH();
+            
+            MAX86141_NOT_FULL = true;
+            
+            // Call the flush function we made earlier to reset the hardware pipeline
+            max86141_flush_all_fifos(); 
+            
+            return false; // Tell multi_parser to abort
         }
+    }
 
-        // MAX86141_FIFO_SAMPLES = 12
-	uint8_t data_buf[MAX86141_FIFO_SAMPLES * 3]; //(128 - FIFO_A_FULL[6:0]) samples, 3 byte/channel        
+    // 2. Read Data from FIFO (We now 100% know there are 12 samples ready)
+    const uint8_t bytes_to_read = MAX86141_FIFO_SAMPLES * 3;
+    uint8_t data_buf[MAX86141_FIFO_SAMPLES * 3]; 
 
-	//Read FIFO
-        //12 * 3 = 36 bytes
-	uint8_t bytes_to_read = MAX86141_FIFO_SAMPLES * 3;
+    spi_burst_read(PIN_CS_PPG, MAX86141_FIFO_DATA_REGISTER, data_buf, bytes_to_read);
 
-	spi_burst_read(PIN_CS_PPG, MAX86141_FIFO_DATA_REGISTER, data_buf, bytes_to_read);
+    // 3. Filter the Data
+    const uint8_t* drop_mask = drop_masks[SAMPLING_PATTERN];
+    uint8_t filtered_buf[MAX86141_FIFO_SAMPLES * 3];
+    uint8_t write_index = 0;
 
-        // Dump extra data not needed...
-        // Diagonal
-        //static const uint8_t drop_mask[12] = { 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0 };
-        // Across
-        //static const uint8_t drop_mask[12] = { 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1 };
-        // All
-        static const uint8_t drop_mask[12] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-
-        // This buffer will hold the 6 kept samples (6 * 3 = 18 bytes)
-        uint8_t filtered_buf[6 * 3];
-        uint8_t write_index = 0;
-
-        for (uint8_t i = 0; i < MAX86141_FIFO_SAMPLES; i++) {
-            if (drop_mask[i] == 1) {
-                // Copy the 3 bytes of sample #i from data_buf into filtered_buf
-                memcpy(&filtered_buf[write_index * 3],
-                       &data_buf[i * 3],
-                       3);
-                write_index++;
-            }
+    for (uint8_t i = 0; i < MAX86141_FIFO_SAMPLES; i++) {
+        if (drop_mask[i] == 1) {
+            memcpy(&filtered_buf[write_index * 3], &data_buf[i * 3], 3);
+            write_index++;
         }
+    }
 
-        // If you want to send only the filtered 18 bytes onward:
-        nus_add_to_buffer(filtered_buf, 18);
+    // 4. Send to Buffer
+    const uint8_t bytes_to_send = write_index * 3;
+    nus_add_to_buffer(filtered_buf, bytes_to_send);
+    
+    return true; // Success!
 }
 
 #define MAX_BYTES_PER_LINE 16
@@ -483,15 +474,17 @@ void max86141_dump_all_ic_registers(void)
  
 // ---------- CS Pin Connectivity Test ----------
 // Writes a unique pattern to each IC, reads all back.
-// This verifies each CS pin actually addresses a different IC.
-// Uses PPG_SYNC_CONTROL (0x10) as scratch — you already use it,
-// so we restore it to 0x02 when done.
+// Uses PPG_SYNC_CONTROL (0x10) as scratch, but uses a bitmask 
+// to ignore hardware-reserved Read-Only bits (Bits 4 and 5).
  
 void max86141_cs_pin_test(void)
 {
     uint8_t test_patterns[NUM_MAX_IC] = { 0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6 };
     uint8_t readback[NUM_MAX_IC];
     uint8_t errors = 0;
+    
+    // Mask to ignore Bits 4 and 5 (1100 1111 = 0xCF)
+    const uint8_t RW_MASK = 0xCF; 
  
     NRF_LOG_INFO("--- CS Pin Connectivity Test ---");
     NRF_LOG_FLUSH();
@@ -510,7 +503,10 @@ void max86141_cs_pin_test(void)
  
     // Step 3: Check results
     for (uint8_t ic = 0; ic < NUM_MAX_IC; ic++) {
-        uint8_t ok = (readback[ic] == test_patterns[ic]);
+        // Apply the mask to the test pattern so we only compare the bits that matter
+        uint8_t expected = test_patterns[ic] & RW_MASK;
+        uint8_t ok = (readback[ic] == expected);
+        
         if (!ok) errors++;
  
         NRF_LOG_INFO("  IC%d: wrote 0x%02X, read 0x%02X  %s",
@@ -518,7 +514,7 @@ void max86141_cs_pin_test(void)
             ok ? "OK" : "** FAIL **");
     }
  
-    // Step 4: Check for crossed wires — did any two ICs return the same value?
+    // Step 4: Check for crossed wires
     for (uint8_t i = 0; i < NUM_MAX_IC; i++) {
         for (uint8_t j = i + 1; j < NUM_MAX_IC; j++) {
             if (readback[i] == readback[j] && readback[i] != 0x00) {
