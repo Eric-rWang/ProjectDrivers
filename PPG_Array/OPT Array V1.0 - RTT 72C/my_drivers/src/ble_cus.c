@@ -228,7 +228,7 @@ uint32_t ble_cus_data_send(ble_cus_t * p_cus,
         
         err_code = sd_ble_gatts_hvx(conn_handle, &hvx_params);
 
-        NRF_LOG_INFO("sd_ble_gatts_hvx result: %x. \r\n", err_code); 
+        // NRF_LOG_INFO("sd_ble_gatts_hvx result: %x. \r\n", err_code); 
     }
    
     return err_code;

@@ -59,4 +59,5 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_sdh.o: \
  ../../../../../../components/libraries/log/src/nrf_log_internal.h \
  ../../../../../../components/libraries/log/nrf_log_instance.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
- ../../../../../../components/libraries/log/nrf_log_types.h
+ ../../../../../../components/libraries/log/nrf_log_types.h \
+ ../../../../../../components/libraries/scheduler/app_scheduler.h

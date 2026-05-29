@@ -31,7 +31,7 @@
 
 #define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define DEVICE_NAME                     "OPT V0 RTT 72C"     		    /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "NICAVO_DEV_0_RTT"     		    /**< Name of device. Will be included in the advertising data. */
 
 #define NUS_SERVICE_UUID_TYPE           BLE_UUID_TYPE_VENDOR_BEGIN                  /**< UUID type for the Nordic UART Service (vendor specific). */
 
@@ -54,15 +54,15 @@
 #define UART_TX_BUF_SIZE                216                                         /**< UART TX buffer size. */
 #define UART_RX_BUF_SIZE                216                                         /**< UART RX buffer size. */
 
+#define DEBUG_RTT                       false
+
 /**@brief Handler for received data over NUS. */
 typedef void (*ble_nus_rx_handler_t) (uint8_t* data, uint16_t len);
 
 /**@brief Handler for received data over CUS. */
 typedef void (*ble_cus_rx_handler_t) (uint8_t data);
 
-void send_data_nus(uint8_t* data_array, uint16_t length);
-
-void nus_add_to_buffer(uint8_t* data, uint16_t length);
+void nus_add_to_buffer(const uint8_t* data, uint16_t length);
 
 void nus_send_buffer(void);
 

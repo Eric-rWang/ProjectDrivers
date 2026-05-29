@@ -57,6 +57,9 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/main.o: \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../modules/nrfx/hal/nrf_temp.h \
+ ../../../../../../components/libraries/scheduler/app_scheduler.h \
+ ../../../../../../components/libraries/util/app_error.h \
+ ../../../../../../components/libraries/timer/app_timer.h \
  ../../../../../../components/libraries/log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
@@ -106,8 +109,6 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/main.o: \
  ../../../../../../components/softdevice/common/nrf_sdh_ble.h \
  ../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.h \
  ../../../../../../components/ble/nrf_ble_qwr/nrf_ble_qwr.h \
- ../../../../../../components/libraries/timer/app_timer.h \
- ../../../../../../components/libraries/util/app_error.h \
  ../../../../../../components/ble/ble_services/ble_nus/ble_nus.h \
  ../../../../../../components/ble/ble_link_ctx_manager/ble_link_ctx_manager.h \
  ../../../../../../components/ble/common/ble_conn_state.h \
