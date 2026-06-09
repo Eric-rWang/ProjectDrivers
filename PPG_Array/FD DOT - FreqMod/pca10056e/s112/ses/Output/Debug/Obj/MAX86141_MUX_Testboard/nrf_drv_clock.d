@@ -1,18 +1,18 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o: \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\integration\nrfx\legacy\nrf_drv_clock.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\integration\nrfx\legacy\nrf_drv_clock.c \
  ../../../../../../components/libraries/util/nordic_common.h \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\integration\nrfx\legacy\nrf_drv_clock.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\integration\nrfx\legacy\nrf_drv_clock.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_clock.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stddef.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52811.h \
  ../../../../../../components/toolchain/cmsis/include/core_cm4.h \
@@ -46,7 +46,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o: \
  ../../../../../../components/softdevice/s112/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdio.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
@@ -63,7 +63,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_drv_clock.o: \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/softdevice/common/nrf_sdh_soc.h \
  ../../../../../../components/libraries/util/sdk_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
  ../../../../../../components/libraries/util/sdk_os.h \
  ../../../../../../components/libraries/util/app_util.h \
  ../../../../../../components/libraries/util/sdk_macros.h \

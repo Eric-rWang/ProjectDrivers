@@ -1,14 +1,14 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT_printf.o: \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT_printf.c \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT.h \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT_Conf.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT_printf.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\external\segger_rtt\SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52811.h \
@@ -30,12 +30,12 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/SEGGER_RTT_printf.o: \
  ../../../../../../components/softdevice/s112/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdio.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
  ../config/sdk_config.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdlib.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdarg.h
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdarg.h

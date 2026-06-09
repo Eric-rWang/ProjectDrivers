@@ -1,13 +1,13 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o: \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\ble\common\ble_advdata.c \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\ble\common\ble_advdata.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/string.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\ble\common\ble_advdata.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\ble\common\ble_advdata.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
  ../../../../../../components/softdevice/s112/headers/ble.h \
  ../../../../../../components/softdevice/s112/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
@@ -40,13 +40,13 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/ble_advdata.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
  ../../../../../../components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stddef.h \
  ../../../../../../components/softdevice/s112/headers/nrf52/nrf_mbr.h \
  ../../../../../../components/softdevice/s112/headers/nrf_svc.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/softdevice/s112/headers/ble_gap.h \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\ble\common\ble_srv_common.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\ble\common\ble_srv_common.h \
  ../../../../../../components/softdevice/s112/headers/ble_types.h \
  ../../../../../../components/libraries/util/app_util.h \
  ../../../../../../components/softdevice/s112/headers/ble_gatt.h

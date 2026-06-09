@@ -1,14 +1,14 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o: \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo.c \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/string.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo.c \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
  ../../../../../../components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stddef.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
@@ -26,7 +26,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/softdevice/s112/headers/nrf52/nrf_mbr.h \
  ../../../../../../components/softdevice/s112/headers/nrf_svc.h \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo.h \
  ../config/sdk_config.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
@@ -35,7 +35,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/nrf_atfifo.o: \
  ../../../../../../components/libraries/log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/libraries/log/nrf_log_types.h \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo_internal.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\atomic_fifo\nrf_atfifo_internal.h \
  ../../../../../../components/libraries/log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
  ../../../../../../components/libraries/util/sdk_os.h \

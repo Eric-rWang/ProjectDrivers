@@ -1,13 +1,13 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o: \
- C:\Users\GJSon\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\FD\ DOT\ -\ FreqMod\pca10056e\s112\ses\ble_driver.c \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\FD\ DOT\ -\ FreqMod\pca10056e\s112\ses\ble_driver.c \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
  ../../../my_drivers/include/ble_driver.h \
  ../../../my_drivers/include/ble_cus.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
  ../../../../../../components/softdevice/s112/headers/ble.h \
  ../../../../../../components/softdevice/s112/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
@@ -35,14 +35,14 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o: \
  ../../../../../../components/ble/common/ble_srv_common.h \
  ../../../../../../components/softdevice/s112/headers/ble_types.h \
  ../../../../../../components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stddef.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/softdevice/s112/headers/nrf52/nrf_mbr.h \
  ../../../../../../components/softdevice/s112/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s112/headers/ble_gap.h \
  ../../../../../../components/softdevice/s112/headers/ble_gatt.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/softdevice/s112/headers/ble_hci.h \
  ../../../../../../components/ble/common/ble_advdata.h \
@@ -71,7 +71,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o: \
  ../../../../../../components/ble/nrf_ble_qwr/nrf_ble_qwr.h \
  ../../../../../../components/libraries/timer/app_timer.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdio.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
  ../../../../../../components/ble/ble_services/ble_nus/ble_nus.h \
  ../../../../../../components/ble/ble_link_ctx_manager/ble_link_ctx_manager.h \
@@ -114,7 +114,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/ble_driver.o: \
  ../../../../../../components/libraries/log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/log/nrf_log_backend_interface.h \
  ../../../../../../components/libraries/memobj/nrf_memobj.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/log/nrf_log_default_backends.h \
  ../../../../../../external/segger_rtt/SEGGER_RTT.h \
