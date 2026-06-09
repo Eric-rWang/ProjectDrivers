@@ -69,6 +69,8 @@
 #include "helper_functions.h"
 #include "system_control.h"
 
+#include "Si5338_Driver.h"
+
 /**@brief Function for initializing the scheduler module.
  */
 static void scheduler_init(void)
@@ -151,35 +153,24 @@ int main(void) {
     timers_init();
     scheduler_init();  
     power_management_init();
-    ble_init(nus_data_received, cus_data_received);
 
-    ret_code_t err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
-    APP_ERROR_CHECK(err_code);
-
-    spi_init();
     twi_init();
+    // twi_scan();
+    Si5338_init();
+
+    //ret_code_t err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
+    //APP_ERROR_CHECK(err_code);
+    //twi_init()
     
-    const uint8_t* PIN_CS_PPG = max86141_get_cs_pins();
-    // ADD THIS: Ensure all CS pins are configured as outputs and set HIGH
-    for(int i = 0; i < NUM_MAX_IC; i++) {
-        nrf_gpio_cfg_output(PIN_CS_PPG[i]);
-        nrf_gpio_pin_set(PIN_CS_PPG[i]); 
-    }
+    uint8_t test_read = Si5338_read(48); // Or whichever register you pick
+    NRF_LOG_INFO("Expected: 0x3A, Actual: 0x%02X", test_read);
 
-    max86141_cs_pin_test();            // 1. Run first — checks wiring
-    max86141_init();                   // 2. Safely configure the sensor and start FIFO
 
-    max86141_flush_all_fifos();
-    max86141_dump_all_ic_registers();  // 3. Verifies all configs match
-    
-    // Start execution.
-    advertising_start();
-
-    for (;;)
-    {
-        max86141_process_data();
-        NRF_LOG_PROCESS();
-        app_sched_execute();    // Process queued BLE events
-        sd_app_evt_wait();
-    }
+    //for (;;)
+    //{
+    //    max86141_process_data();
+    //    NRF_LOG_PROCESS();
+    //    app_sched_execute();    // Process queued BLE events
+    //    sd_app_evt_wait();
+    //}
 }

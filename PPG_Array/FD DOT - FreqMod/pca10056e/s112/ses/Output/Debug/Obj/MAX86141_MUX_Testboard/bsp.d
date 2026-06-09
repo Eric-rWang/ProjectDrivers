@@ -1,18 +1,18 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o: \
- C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp.c \
- C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_ConfDefaults.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL_Arm_Conf.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdbool.h \
+ C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp.c \
+ C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_ConfDefaults.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/__SEGGER_RTL_Arm_Conf.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdbool.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stddef.h \
  ../../../../../../modules/nrfx/mdk/nrf.h \
  ../../../../../../modules/nrfx/mdk/nrf52811.h \
  ../../../../../../components/toolchain/cmsis/include/core_cm4.h \
@@ -47,7 +47,7 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o: \
  ../../../../../../components/softdevice/s112/headers/nrf_nvic.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.28/include/stdio.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/softdevice/s112/headers/nrf_error.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
@@ -60,5 +60,5 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/bsp.o: \
  ../../../../../../components/boards/pca10056.h \
  ../../../../../../components/libraries/button/app_button.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp_config.h \
+ C:\Users\GJSon\Documents\Repositories\NRF_Drivers\components\libraries\bsp\bsp_config.h \
  ../../../../../../components/libraries/timer/app_timer.h

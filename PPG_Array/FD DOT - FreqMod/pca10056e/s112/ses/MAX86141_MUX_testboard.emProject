@@ -51,15 +51,18 @@
       <file file_name="../../../../../../components/libraries/bsp/bsp_btn_ble.c" />
     </folder>
     <folder Name="Drivers">
-      <file file_name="../../../my_drivers/src/ble_cus.c" />
-      <file file_name="../../../my_drivers/src/ble_driver.c" />
-      <file file_name="../../../my_drivers/src/i2c_driver.c">
+      <file file_name="ble_cus.c" />
+      <file file_name="ble_driver.c" />
+      <file file_name="i2c_driver.c">
         <configuration Name="Debug" build_exclude_from_build="No" />
       </file>
-      <file file_name="../../../my_drivers/src/max86141_driver.c" />
-      <file file_name="../../../my_drivers/src/mc3635_driver.c" />
-      <file file_name="../../../my_drivers/src/spi_driver.c" />
-      <file file_name="../../../my_drivers/src/tmp117_driver.c" />
+      <file file_name="max86141_driver.c" />
+      <file file_name="mc3635_driver.c" />
+      <file file_name="../../../my_drivers/src/Si5338_Driver.c" />
+      <file file_name="../../../my_drivers/include/Si5338_Driver.h" />
+      <file file_name="../../../my_drivers/include/Si5338_Reg.h" />
+      <file file_name="spi_driver.c" />
+      <file file_name="tmp117_driver.c" />
     </folder>
     <folder Name="Helper Functions">
       <file file_name="../../../my_drivers/src/helper_functions.c" />

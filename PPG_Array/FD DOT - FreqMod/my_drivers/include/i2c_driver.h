@@ -1,7 +1,7 @@
 #include "boards.h"
 #include "app_util_platform.h"
 #include "app_error.h"
-#include "nrf_drv_twi.h"
+// #include "nrf_drv_twi.h"
 
 #ifndef USE_TEMP_SENSOR
 #define USE_TEMP_SENSOR 1
@@ -18,8 +18,8 @@
  /* Number of possible TWI addresses for the scan function. */
  #define TWI_ADDRESSES      127
 
-#define SCL_PIN             20
-#define SDA_PIN             16
+#define SCL_PIN             27
+#define SDA_PIN             26
 
 void twi_init (void);
 void twi_scan (void);
