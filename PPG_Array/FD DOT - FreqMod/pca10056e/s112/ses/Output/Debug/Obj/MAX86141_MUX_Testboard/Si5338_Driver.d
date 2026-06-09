@@ -61,4 +61,16 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/Si5338_Driver.o: \
  ../../../../../../components/libraries/util/app_error.h \
  ../../../my_drivers/include/Si5338_Reg.h \
  ../../../my_drivers/include/Si5338_Driver.h \
- ../../../../../../components/libraries/delay/nrf_delay.h
+ ../../../../../../components/libraries/delay/nrf_delay.h \
+ ../../../../../../components/libraries/log/nrf_log.h \
+ ../../../../../../components/libraries/util/sdk_common.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/string.h \
+ ../../../../../../components/libraries/util/sdk_os.h \
+ ../../../../../../components/libraries/util/app_util.h \
+ ../../../../../../components/libraries/util/sdk_macros.h \
+ ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
+ ../../../../../../components/libraries/strerror/nrf_strerror.h \
+ ../../../../../../components/libraries/log/src/nrf_log_internal.h \
+ ../../../../../../components/libraries/log/nrf_log_instance.h \
+ ../../../../../../components/libraries/log/nrf_log_types.h \
+ ../../../../../../components/libraries/log/nrf_log_types.h

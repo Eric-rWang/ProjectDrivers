@@ -158,12 +158,11 @@ int main(void) {
     // twi_scan();
     Si5338_init();
 
+    while (1);
+
     //ret_code_t err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
     //APP_ERROR_CHECK(err_code);
     //twi_init()
-    
-    uint8_t test_read = Si5338_read(48); // Or whichever register you pick
-    NRF_LOG_INFO("Expected: 0x3A, Actual: 0x%02X", test_read);
 
 
     //for (;;)

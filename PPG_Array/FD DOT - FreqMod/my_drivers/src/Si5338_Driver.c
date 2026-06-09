@@ -2,6 +2,7 @@
 #include "Si5338_Reg.h"
 #include "Si5338_Driver.h"
 #include "nrf_delay.h"
+#include "nrf_log.h"
 
 uint8_t Si5338_read (uint8_t address) {
   uint8_t read_out[1];
@@ -50,6 +51,9 @@ void Si5338_reg_init (void) {
       Si5338_mask_write (address, value, mask);
     }
   }
+
+    uint8_t test_read = Si5338_read(48); // Or whichever register you pick
+    // NRF_LOG_INFO("Expected: 0x3A, Actual: 0x%02X", test_read);
 }
 
 void Si5338_init (void) { // Follows initiation flow chart on page 23 of Si5338 datasheet
@@ -75,7 +79,7 @@ void Si5338_init (void) { // Follows initiation flow chart on page 23 of Si5338 
   }
 
   // Configure PLL for locking
-  Si5338_mask_write (49, 0x00, 0x80);
+  Si5338_mask_write (49, 0x00, 0x80); // Configure PLL for locking (Page 1)
 
   // Initiate locking of PLL
   Si5338_mask_write (246, 0x02, 0x02);
