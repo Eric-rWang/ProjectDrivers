@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/main.o: \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\main.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\main.c \
  ../../../../../../components/libraries/delay/nrf_delay.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
@@ -127,4 +127,4 @@ Output/Debug/Obj/MAX86141_MUX_Testboard/main.o: \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../my_drivers/include/ble_driver.h \
  ../../../my_drivers/include/helper_functions.h \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\system_control.h
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\system_control.h

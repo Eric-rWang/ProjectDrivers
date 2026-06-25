@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/mc3635_driver.o: \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\mc3635_driver.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\mc3635_driver.c \
  ../../../my_drivers/include/mc3635_driver.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \

@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/tmp117_driver.o: \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\tmp117_driver.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\tmp117_driver.c \
  ../../../my_drivers/include/tmp117_driver.h \
  ../../../my_drivers/include/i2c_driver.h \
  ../../../../../../components/boards/boards.h \

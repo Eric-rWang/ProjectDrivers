@@ -30,14 +30,15 @@ void Si5338_mask_write (uint8_t address, uint8_t data, uint8_t mask) {
   Si5338_write(address, data_write);
 }
 
-void Si5338_reg_init (void) {
+void Si5338_reg_init (int mode) {
   
   uint8_t address, value, mask;
+  const Reg_Data* reg_array = Register_Array[mode];
   
   for (int i = 0; i < NUM_REGS_MAX; i++) {
-    address = Reg_Store[i].Reg_Addr;
-    value = Reg_Store[i].Reg_Val;
-    mask = Reg_Store[i].Reg_Mask;
+    address = reg_array[i].Reg_Addr;
+    value = reg_array[i].Reg_Val;
+    mask = reg_array[i].Reg_Mask;
 
     if (mask == 0x00) {
       continue;
@@ -56,7 +57,7 @@ void Si5338_reg_init (void) {
     // NRF_LOG_INFO("Expected: 0x3A, Actual: 0x%02X", test_read);
 }
 
-void Si5338_init (void) { // Follows initiation flow chart on page 23 of Si5338 datasheet
+void Si5338_init (int mode) { // Follows initiation flow chart on page 23 of Si5338 datasheet
   uint8_t status, temp;
 
   // Set address page to 0
@@ -69,7 +70,7 @@ void Si5338_init (void) { // Follows initiation flow chart on page 23 of Si5338 
   Si5338_mask_write (241, 0x80, 0x80);
 
   // Initialize registers from ClockBuilderPro
-  Si5338_reg_init ();
+  Si5338_reg_init (mode);
 
   // Validate input clock
   status = Si5338_mask_read (218, 0x04);

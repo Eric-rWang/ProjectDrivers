@@ -156,7 +156,10 @@ int main(void) {
 
     twi_init();
     // twi_scan();
-    Si5338_init();
+
+    // Mode 0 = clock only (50 MHz output 0 and 100 MHz output 1 HCSL)
+    // Mode 1 = clock output of 50 MHz CML on output 1 (used for all laser driver tests)
+    Si5338_init(0);
 
     while (1);
 

@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/max86141_driver.o: \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\max86141_driver.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\max86141_driver.c \
  ../../../my_drivers/include/max86141_driver.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h \
