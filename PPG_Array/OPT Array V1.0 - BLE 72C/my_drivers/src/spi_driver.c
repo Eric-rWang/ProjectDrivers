@@ -3,9 +3,9 @@
 
 static bool CS_trig = false;
 
-#define SPI_MOSI_PIN 5
-#define SPI_MISO_PIN 8
-#define SPI_SCK_PIN 12
+#define SPI_MOSI_PIN 19
+#define SPI_MISO_PIN 20
+#define SPI_SCK_PIN 18
 
 
 static void spi_event_handler(nrf_drv_spi_evt_t const* p_event, void* p_context)

@@ -72,16 +72,17 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="36" y="119" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.h" left="0" top="106" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="145" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="143" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="8" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="145" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="133" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="7" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="38" y="543" useTextEdit="1" path="../../../my_drivers/src/ble_driver.c" left="0" top="516" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="38" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="18" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="138" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" top="125" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="55" y="169" useTextEdit="1" path="../../../my_drivers/src/max86141_driver.c" left="0" top="142" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="66" y="5" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="12" useTextEdit="1" path="../../../my_drivers/src/max86141_driver.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="44" y="9916" useTextEdit="1" path="../config/sdk_config.h" left="0" top="9904" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="42" y="965" useTextEdit="1" path="../../../../../../external/segger_rtt/SEGGER_RTT.c" left="0" top="955" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" path="../../../../../../components/libraries/util/app_error_weak.c" left="0" top="70" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="40" y="371" useTextEdit="1" path="../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.c" left="0" top="356" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="308" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/nrfx_common.h" left="0" top="296" codecName="Default"/>
  </Files>
  <EMStudioWindow activeProject="MAX86141_MUX_Testboard" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/Users/ericwang/Library/CloudStorage/Box-Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio 8.10b/source/thumb_crt0.s&#xa;&#xa;C:/Users/fengw/Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/components/libraries/log/src/nrf_log_str_formatter.c&#xa;&#xa;C:/Users/fengw/Downloads/Nordic SDK 15.3/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/util/app_error_weak.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V3.1/system_control.c&#xa;" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
