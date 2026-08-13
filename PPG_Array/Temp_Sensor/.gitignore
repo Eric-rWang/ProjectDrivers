@@ -1,0 +1,10 @@
+# Build output
+Output/
+*.o
+*.d
+*.elf
+*.map
+
+# Prebuilt / generated hex images
+hex/
+*.hex
