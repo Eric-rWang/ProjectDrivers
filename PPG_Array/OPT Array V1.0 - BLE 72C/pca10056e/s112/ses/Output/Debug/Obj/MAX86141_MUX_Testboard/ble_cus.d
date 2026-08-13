@@ -1,5 +1,5 @@
 Output/Debug/Obj/MAX86141_MUX_Testboard/ble_cus.o: \
- C:\Users\fengw\Downloads\Nordic\ SDK\ 15.3\Nordic\ SDK\ 15.3\projects\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\ble_cus.c \
+ C:\Users\Jack\ Son\Documents\Repositories\NRF_Drivers\ProjectDrivers\PPG_Array\OPT\ Array\ V1.0\ -\ BLE\ 72C\my_drivers\src\ble_cus.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/include/__SEGGER_RTL.h \

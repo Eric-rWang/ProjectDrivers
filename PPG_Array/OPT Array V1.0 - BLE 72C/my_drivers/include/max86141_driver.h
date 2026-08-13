@@ -3,15 +3,15 @@
 
 /////////////Hardware Pins//////////////////
 #define PIN_CS_PPG1						3
-#define PIN_INT_PPG                                             1
+#define PIN_INT_PPG                                             17
 
 #define NUM_MAX_IC                                              6              
-#define SPI_CS_1                                                    16
-#define SPI_CS_2                                                    15
-#define SPI_CS_3                                                    17
-#define SPI_CS_4                                                    11
-#define SPI_CS_5                                                    21
-#define SPI_CS_6                                                    18
+#define SPI_CS_1                                                    11
+#define SPI_CS_2                                                    12
+#define SPI_CS_3                                                    13
+#define SPI_CS_4                                                    14
+#define SPI_CS_5                                                    15
+#define SPI_CS_6                                                    16
 
 // SAMPLING_PATTERN
 // 0: Diagonals Only

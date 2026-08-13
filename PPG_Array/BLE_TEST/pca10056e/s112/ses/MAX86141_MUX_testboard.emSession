@@ -30,7 +30,9 @@
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard"/>
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;Application"/>
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;Drivers"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_BLE"/>
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Drivers"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Libraries"/>
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Segger_RTT"/>
  </Project>
  <Register1>
@@ -70,19 +72,21 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="148" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="136" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="132" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="129" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="8" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="1" y="429" useTextEdit="1" path="../../../my_drivers/src/ble_driver.c" left="0" top="389" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="191" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="162" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="12" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="12" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="44" y="9916" useTextEdit="1" path="../config/sdk_config.h" left="0" top="9904" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="40" y="371" useTextEdit="1" path="../../../../../../components/ble/nrf_ble_gatt/nrf_ble_gatt.c" left="0" top="356" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../my_drivers/include/saadc.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" path="../../../my_drivers/src/saadc.c" left="0" top="58" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" path="../../../my_drivers/src/saadc.c" left="0" top="51" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="71" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_timer.h" left="0" top="31" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="13" y="43" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_ppi.h" left="0" top="33" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/include/nrfx_ppi.h" left="0" top="113" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="56" y="57" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/src/nrfx_ppi.c" left="0" top="57" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/include/nrfx_timer.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="34" y="658" useTextEdit="1" path="../../../../../../components/softdevice/s112/headers/nrf_soc.h" left="0" top="641" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" path="../../../../../../components/libraries/util/app_error_weak.c" left="0" top="70" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="MAX86141_MUX_Testboard" fileDialogDefaultFilter="*" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/Users/ericwang/Library/CloudStorage/Box-Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio 8.10b/source/thumb_crt0.s&#xa;&#xa;C:/Users/fengw/Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/components/libraries/log/src/nrf_log_str_formatter.c&#xa;&#xa;C:/Users/fengw/Downloads/Nordic SDK 15.3/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/util/app_error_weak.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V3.1/system_control.c&#xa;" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/modules/nrfx/drivers/include" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <EMStudioWindow activeProject="MAX86141_MUX_Testboard" fileDialogDefaultFilter="*" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/Users/ericwang/Library/CloudStorage/Box-Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio 8.10b/source/thumb_crt0.s&#xa;&#xa;C:/Users/fengw/Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/components/libraries/log/src/nrf_log_str_formatter.c&#xa;&#xa;C:/Users/fengw/Downloads/Nordic SDK 15.3/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/util/app_error_weak.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V3.1/system_control.c&#xa;" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/modules/nrfx/drivers/include" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
