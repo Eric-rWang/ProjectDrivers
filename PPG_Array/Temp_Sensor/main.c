@@ -43,12 +43,16 @@
  *
  * Reads the ams AS6214 digital temperature sensor over I2C on the PCA10056
  * dev board (SCL = P0.27, SDA = P0.26), converts each raw sample to degrees
- * Celsius, and streams the result live as CSV rows over the SEGGER RTT
- * terminal, one sample every 10 seconds.
+ * Celsius, and streams the result live as CSV rows over a dedicated SEGGER
+ * RTT channel (channel 1), one sample every 10 seconds. NRF_LOG debug text
+ * stays on channel 0; the CSV data channel is separate and never dropped.
  *
- * Capture the live CSV to a file with the J-Link RTT Logger (or RTT Viewer's
- * "Log to file"), pointed at RTT channel 0:
- *   JLinkRTTLogger -Device NRF52840_XXAA -If SWD -Speed 4000 -RTTChannel 0 temperature.csv
+ * Capture the live CSV, stamped with the PC's wall-clock time per row, with
+ * the host tool tools/rtt_temp_logger.py (see that file). To capture the raw
+ * stream without wall-clock stamps instead, point the J-Link RTT Logger at
+ * RTT channel 1 (a control-block search range is required - see HANDOFF.md):
+ *   JLinkRTTLogger -Device NRF52840_XXAA -If SWD -Speed 4000 -RTTChannel 1 \
+ *       -RTTSearchRanges "0x20000000 0x40000" temperature_raw.csv
  */
 
 #include "nrf_delay.h"
@@ -107,18 +111,22 @@ int main(void)
         /* Drain pending log messages. */
     }
 
-    /* CSV header, then a baseline sample at t = 0 s. */
+    /* Configure the dedicated RTT data channel (channel 1), then emit the CSV
+     * header and a baseline sample at t = 0 s. */
+    as6214_csv_init();
     as6214_csv_header();
 
-    uint32_t elapsed_s = 0;
-    as6214_sample_to_csv(elapsed_s);
+    uint32_t uptime_s = 0;
+    as6214_sample_to_csv(uptime_s);
 
     /* Sample and stream one CSV row every 10 seconds. The I2C read is a
-     * blocking (busy-wait) transfer, so it runs here in thread context. */
+     * blocking (busy-wait) transfer, so it runs here in thread context.
+     * uptime_s is nominal loop time; the host capture tool stamps each row
+     * with the authoritative PC wall-clock time. */
     for (;;)
     {
         nrf_delay_ms(SAMPLE_PERIOD_MS);
-        elapsed_s += SAMPLE_PERIOD_MS / 1000;
-        as6214_sample_to_csv(elapsed_s);
+        uptime_s += SAMPLE_PERIOD_MS / 1000;
+        as6214_sample_to_csv(uptime_s);
     }
 }

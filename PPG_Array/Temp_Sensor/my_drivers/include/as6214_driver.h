@@ -41,6 +41,14 @@
  * used as a lightweight presence/sanity check during init. */
 #define AS6214_CONFIG_RSVD_BIT  0x4000
 
+/**@brief Configure the dedicated RTT up-buffer used for the CSV stream.
+ *
+ * The CSV is streamed on its own RTT channel (channel 1), kept separate from
+ * the NRF_LOG debug backend on channel 0, and runs in BLOCK_IF_FIFO_FULL mode
+ * so that no sample row is ever silently dropped while a host logger is
+ * attached. Call once, before as6214_csv_header(). */
+void as6214_csv_init(void);
+
 /**@brief Initialize the AS6214. Verifies the device responds on the bus.
  *        twi_init() must have been called first. */
 void as6214_init(void);
@@ -48,23 +56,31 @@ void as6214_init(void);
 /**@brief @return true if as6214_init() confirmed a working device. */
 bool as6214_init_successful(void);
 
-/**@brief Read the raw 16-bit two's-complement temperature register.
- * @return Signed raw sample (MSB byte read first, then LSB). */
-int16_t as6214_read_raw(void);
+/**@brief Read the raw 16-bit two's-complement temperature register, retrying a
+ *        few times on a transient bus error.
+ * @param[out] raw  Signed raw sample (MSB byte read first, then LSB), valid
+ *                  only when the function returns true.
+ * @return true on a successful read, false if the bus never responded. */
+bool as6214_read_raw(int16_t *raw);
 
 /**@brief Convert a raw temperature register value to degrees Celsius. */
 float as6214_raw_to_celsius(int16_t raw);
 
-/**@brief Read the sensor and return the temperature in degrees Celsius. */
-float as6214_read_celsius(void);
+/**@brief Read the sensor and return the temperature in degrees Celsius.
+ * @param[out] celsius  Temperature, valid only when the function returns true.
+ * @return true on a successful read, false on a bus error. */
+bool as6214_read_celsius(float *celsius);
 
-/**@brief Print the CSV header row ("time_s,temperature_C") to the RTT
- *        terminal. Call once before streaming samples. */
+/**@brief Print the CSV header row ("uptime_s,temperature_C") to the RTT
+ *        data channel. Call once before streaming samples. The host capture
+ *        tool prepends a "pc_time" wall-clock column of its own. */
 void as6214_csv_header(void);
 
-/**@brief Read one sample and print it as a CSV row to the RTT terminal:
- *        "<timestamp_s>,<temperature_C>".
- * @param[in] timestamp_s  Seconds since sampling started (row time stamp). */
-void as6214_sample_to_csv(uint32_t timestamp_s);
+/**@brief Read one sample and print it as a CSV row to the RTT data channel:
+ *        "<uptime_s>,<temperature_C>".
+ * @param[in] uptime_s  Seconds of on-target uptime since sampling started
+ *                      (nominal loop time; the authoritative wall-clock
+ *                      timestamp is added by the host on capture). */
+void as6214_sample_to_csv(uint32_t uptime_s);
 
 #endif /* AS6214_DRIVER_H */

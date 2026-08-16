@@ -37,9 +37,16 @@ New driver + wiring in `PPG_Array/Temp_Sensor`:
   context). `app_timer` was deliberately avoided: the build defines
   `SOFTDEVICE_PRESENT` but `main` never enables the SD, and app_timer would need
   the LFCLK started.
-- **Output**: CSV over **SEGGER RTT channel 0**. Header `time_s,temperature_C`,
-  a row at `t=0`, then every 10 s. Float is formatted with integer math because
-  `SEGGER_RTT_printf` has no `%f`.
+- **Output**: CSV over a **dedicated SEGGER RTT channel 1** (NRF_LOG debug text
+  stays on channel 0). Header `uptime_s,temperature_C`, a row at `t=0`, then
+  every 10 s. Float is formatted with integer math because `SEGGER_RTT_printf`
+  has no `%f`. The CSV up-buffer is configured (`as6214_csv_init()`) in
+  **`BLOCK_IF_FIFO_FULL`** mode so rows are never silently dropped.
+- **RTT reliability fix (2026-08-16)**: previously the CSV shared RTT buffer 0
+  with NRF_LOG in `NO_BLOCK_SKIP` mode, so once the 512 B buffer filled (before
+  a host attached) every later row was dropped -> "a few values, if any at all".
+  Now it has its own channel + blocking mode. Trade-off: if no host ever
+  attaches, sampling stalls once the 1 KB buffer fills (correct for a logger).
 
 ## Build & flash
 ```
@@ -51,11 +58,20 @@ Flash via SES: `Build`, then `Debug → Go (F5)` — this also loads the S112
 SoftDevice (`additional_load_file` in the emProject). App-only flashes won't boot
 (app links above the SoftDevice).
 
-## Capturing the CSV (IMPORTANT gotcha)
+## Capturing the CSV (with PC wall-clock time)
+**Preferred:** the host tool `tools/rtt_temp_logger.py` reads RTT **channel 1**
+and writes `pc_time,uptime_s,temperature_C`, stamping each row with the PC's
+wall-clock time. It sets the search range automatically.
+```
+pip install pylink-square          # needs SEGGER J-Link software installed
+python tools/rtt_temp_logger.py    # -> temperature_<timestamp>.csv
+```
+
+**Raw alternative (no wall-clock):** J-Link RTT Logger/Viewer on **channel 1**.
 J-Link RTT **auto-detect finds the control block on 0 bytes** because the
 SoftDevice pushes it high in RAM (~`0x20003560`). You MUST give a search range:
 - RTT Viewer: RTT Control Block → **Search Range** = `0x20000000 0x40000`.
-- RTT Logger: add `-RTTSearchRanges "0x20000000 0x40000"`.
+- RTT Logger: add `-RTTChannel 1 -RTTSearchRanges "0x20000000 0x40000"`.
 
 Full tutorial (artifact):
 https://claude.ai/code/artifact/00b7a6bb-c4e4-46dd-af3c-ebc605e18ad6

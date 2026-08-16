@@ -8,3 +8,7 @@ Output/
 # Prebuilt / generated hex images
 hex/
 *.hex
+
+# Host tool: Python cache and captured CSV logs
+tools/__pycache__/
+tools/temperature_*.csv

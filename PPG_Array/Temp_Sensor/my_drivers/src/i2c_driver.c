@@ -1,11 +1,38 @@
 #include "i2c_driver.h"
 #include "nrf_drv_twi.h"
+#include "nrf_delay.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
 /* Indicates if operation on TWI has ended. */
 extern volatile bool m_xfer_done;
+
+/* Set by the TWI handler when a transfer ends in a NACK or an unexpected
+ * event, so the blocking read helpers can report failure instead of trusting
+ * whatever happened to be in the buffer. */
+static volatile bool m_xfer_error = false;
+
+/* Upper bound on how long a single TWI transfer may take before we give up.
+ * A 2-byte transfer at 100 kHz is well under 1 ms; 100 ms is generous and
+ * guarantees a missing DONE event (e.g. sensor unplugged) can never hang the
+ * logger in an infinite busy-wait. */
+#define TWI_XFER_TIMEOUT_US     100000
+
+/**
+ * @brief Wait for the TWI handler to signal completion, bounded by a timeout.
+ * @return true if the transfer completed, false if it timed out.
+ */
+static bool twi_wait_done(void)
+{
+    uint32_t remaining_us = TWI_XFER_TIMEOUT_US;
+    while (!m_xfer_done && remaining_us > 0)
+    {
+        nrf_delay_us(10);
+        remaining_us -= 10;
+    }
+    return m_xfer_done;
+}
 
 /* TWI instance. The nRF52811 has a single TWI instance (0), so the AS6214
  * temperature sensor uses TWI0. */
@@ -49,26 +76,52 @@ void twi_write(uint8_t slave_address, uint8_t reg_and_data[], uint8_t size, bool
 }
 
 /**
- * @brief Function to read a register over I2C
+ * @brief Function to read a register over I2C.
+ *
+ * Fault-tolerant: never faults the CPU and never spins forever. A failed
+ * transfer start, a bus NACK, or a timeout all return false, leaving the
+ * caller to skip or retry the sample rather than halting the logger.
+ *
+ * @return true if the requested bytes were read successfully, false otherwise.
  */
-void twi_read(uint8_t slave_address, uint8_t register_address, uint8_t output_array[], uint8_t bytes_to_read) {
-	m_xfer_done = false;
+bool twi_read(uint8_t slave_address, uint8_t register_address, uint8_t output_array[], uint8_t bytes_to_read) {
     ret_code_t err_code;
-    
 	uint8_t reg[1] = {register_address};
 
-	/* 1. Read 1 byte from the FIFO Write Pointer to get size of FIFO. */
-    /*      First, send slave ID, write mode, and measure command. */
-    /*      There will be a repeated start, so do not send stop condition. */
+	/* 1. Send the register pointer (write mode). Repeated start follows, so
+	 *    do not send a stop condition. */
+    m_xfer_done  = false;
+    m_xfer_error = false;
     err_code = nrf_drv_twi_tx(&m_twi, slave_address, reg, sizeof(reg), true);
-    APP_ERROR_CHECK(err_code);
-    while(m_xfer_done != true);
+    if (err_code != NRF_SUCCESS) {
+        NRF_LOG_INFO("TWI read: tx start failed (0x%X).", err_code);
+        NRF_LOG_FLUSH();
+        return false;
+    }
+    if (!twi_wait_done()) {
+        NRF_LOG_INFO("TWI read: tx timed out.");
+        NRF_LOG_FLUSH();
+        return false;
+    }
+    if (m_xfer_error) {
+        return false;   /* NACK already logged in the handler. */
+    }
 
     /* 2. Repeated start. Send device address and read mode. Read and stop. */
-    m_xfer_done = false;
+    m_xfer_done  = false;
+    m_xfer_error = false;
     err_code = nrf_drv_twi_rx(&m_twi, slave_address, output_array, bytes_to_read);
-    APP_ERROR_CHECK(err_code);
-    while(m_xfer_done != true);							
+    if (err_code != NRF_SUCCESS) {
+        NRF_LOG_INFO("TWI read: rx start failed (0x%X).", err_code);
+        NRF_LOG_FLUSH();
+        return false;
+    }
+    if (!twi_wait_done()) {
+        NRF_LOG_INFO("TWI read: rx timed out.");
+        NRF_LOG_FLUSH();
+        return false;
+    }
+    return !m_xfer_error;
 }
 
 
@@ -101,14 +154,17 @@ void twi_handler(nrf_drv_twi_evt_t const * p_event, void * p_context)
 		case NRF_DRV_TWI_EVT_ADDRESS_NACK:
 			NRF_LOG_INFO("Address NACK");
 			NRF_LOG_FLUSH();
+			m_xfer_error = true;
 			break;
 		case NRF_DRV_TWI_EVT_DATA_NACK :
 			NRF_LOG_INFO("Data NACK");
 			NRF_LOG_FLUSH();
+			m_xfer_error = true;
 			break;
         default:
             NRF_LOG_INFO("Data not handled");
 			NRF_LOG_FLUSH();
+			m_xfer_error = true;
             break;
     }
 	m_xfer_done = true;
