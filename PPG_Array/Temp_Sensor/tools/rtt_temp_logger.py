@@ -64,6 +64,10 @@ def parse_args():
                    help="RTT up-buffer (channel) carrying the CSV. Default: 1.")
     p.add_argument("--serial", type=int, default=None,
                    help="J-Link serial number (only needed if several are attached).")
+    p.add_argument("--jlink-dll", default=None,
+                   help="Path to a specific JLinkARM.dll to load, e.g. "
+                        r'"C:\Program Files\SEGGER\JLink\JLinkARM.dll". Use if '
+                        "pylink auto-loads an old DLL that fails to connect.")
     p.add_argument("--output", default=None,
                    help="Output CSV path. A bare filename is placed next to this "
                         "script; an absolute path is honored as-is. "
@@ -100,13 +104,45 @@ def main():
     iface = (pylink.enums.JLinkInterfaces.SWD if args.interface == "SWD"
              else pylink.enums.JLinkInterfaces.JTAG)
 
-    jlink = pylink.JLink()
+    if args.jlink_dll:
+        jlink = pylink.JLink(lib=pylink.library.Library(dllpath=args.jlink_dll))
+    else:
+        jlink = pylink.JLink()
     print("Opening J-Link...")
     jlink.open(serial_no=args.serial)
     jlink.set_tif(iface)
+
+    # Report what actually got loaded/attached - helps diagnose the common
+    # "Unspecified error" on connect, which is almost always environmental.
+    try:
+        print("  JLinkARM.dll : {}".format(jlink.version))
+        print("  Probe        : {} (firmware: {})".format(
+            jlink.product_name, jlink.firmware_version))
+    except Exception:
+        pass
+
     print("Connecting to {} @ {} kHz over {}...".format(
         args.device, args.speed, args.interface))
-    jlink.connect(args.device, speed=args.speed)
+    try:
+        jlink.connect(args.device, speed=args.speed)
+    except pylink.errors.JLinkException as exc:
+        jlink.close()
+        sys.exit(
+            "\nerror: could not connect to the target ({}).\n"
+            "This is almost always environmental, not the sensor. Check:\n"
+            "  1. Close anything else using the J-Link - a SEGGER Embedded\n"
+            "     Studio debug session (stop it, leave the board powered),\n"
+            "     J-Link RTT Viewer, Ozone, or J-Link Commander.\n"
+            "  2. Confirm the board is powered and USB is on the PCA10056\n"
+            "     debug port.\n"
+            "  3. Sanity-check the probe from a terminal:\n"
+            "       JLink.exe -Device {} -If {} -Speed {} -AutoConnect 1\n"
+            "     If that also fails, it's the probe/target/power (or nRF52\n"
+            "     APPROTECT), not this script.\n"
+            "  4. If JLink.exe works but this doesn't, pylink loaded an old\n"
+            "     JLinkARM.dll; pass the current one with --jlink-dll or set\n"
+            "     it via the J-Link install.".format(
+                exc, args.device, args.interface, args.speed))
 
     # Constrain the RTT control-block search BEFORE starting RTT (HANDOFF gotcha).
     jlink.exec_command("SetRTTSearchRanges {} {}".format(
