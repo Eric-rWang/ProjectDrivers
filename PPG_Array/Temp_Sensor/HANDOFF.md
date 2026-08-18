@@ -67,6 +67,15 @@ pip install pylink-square          # needs SEGGER J-Link software installed
 python tools/rtt_temp_logger.py    # -> temperature_<timestamp>.csv
 ```
 
+**Live graph:** `tools/rtt_temp_plot.py` does the same capture *plus* a live
+matplotlib plot of temperature over time. It can also replay a saved CSV with
+no hardware attached.
+```
+pip install pylink-square matplotlib
+python tools/rtt_temp_plot.py                      # live plot + CSV
+python tools/rtt_temp_plot.py --csv temperature_....csv   # replay a file
+```
+
 **Raw alternative (no wall-clock):** J-Link RTT Logger/Viewer on **channel 1**.
 J-Link RTT **auto-detect finds the control block on 0 bytes** because the
 SoftDevice pushes it high in RAM (~`0x20003560`). You MUST give a search range:
