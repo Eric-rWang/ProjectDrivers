@@ -73,12 +73,12 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="36" y="119" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.h" left="0" top="106" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="145" useTextEdit="1" path="../../../main.c" left="0" top="105" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="151" useTextEdit="1" path="../../../main.c" left="0" top="143" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="7" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="521" useTextEdit="1" path="../../../my_drivers/src/ble_driver.c" left="0" top="504" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="53" y="33" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="21" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="65" y="5" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" selected="1" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="256" useTextEdit="1" path="../../../my_drivers/src/max86141_driver.c" left="0" top="216" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="48" y="31" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" selected="1" top="19" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="65" y="5" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="51" y="172" useTextEdit="1" path="../../../my_drivers/src/max86141_driver.c" left="0" top="147" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="44" y="9916" useTextEdit="1" path="../config/sdk_config.h" left="0" top="9904" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="42" y="965" useTextEdit="1" path="../../../../../../external/segger_rtt/SEGGER_RTT.c" left="0" top="955" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" path="../../../../../../components/libraries/util/app_error_weak.c" left="0" top="70" codecName="Default"/>
