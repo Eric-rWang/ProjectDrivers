@@ -5,7 +5,7 @@
     Name="Release"
     c_preprocessor_definitions="NDEBUG"
     gcc_optimization_level="Optimize For Size" />
-  <project Name="MAX86141_MUX_Testboard">
+  <project Name="OPT Array V1.0 - BLE 72C">
     <configuration
       Name="Common"
       arm_architecture="v7EM"

@@ -1,0 +1,2 @@
+Output/Debug/Obj/OPT\ Array\ V2.1\ -\ RTT\ 72C/thumb_crt0.o: \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ 8.10b/source/thumb_crt0.s

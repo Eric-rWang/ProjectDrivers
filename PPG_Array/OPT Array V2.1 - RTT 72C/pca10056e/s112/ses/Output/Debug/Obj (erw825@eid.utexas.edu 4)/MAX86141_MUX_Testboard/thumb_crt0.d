@@ -1,0 +1,2 @@
+Output/Debug/Obj/MAX86141_MUX_Testboard/thumb_crt0.o: \
+ /Applications/SEGGER\ Embedded\ Studio\ for\ ARM\ 7.32a/source/thumb_crt0.s

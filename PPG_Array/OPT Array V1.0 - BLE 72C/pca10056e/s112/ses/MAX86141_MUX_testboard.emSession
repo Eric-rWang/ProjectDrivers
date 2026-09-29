@@ -27,13 +27,13 @@
  </Memory4>
  <Project>
   <ProjectSessionItem path="ble_app_uart_pca10056e_s112"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;Application"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;Drivers"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_BLE"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Drivers"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Libraries"/>
-  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;MAX86141_MUX_Testboard;nRF_Segger_RTT"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;Application"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;Drivers"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;nRF_BLE"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;nRF_Drivers"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;nRF_Libraries"/>
+  <ProjectSessionItem path="ble_app_uart_pca10056e_s112;OPT Array V1.0 - BLE 72C;nRF_Segger_RTT"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="MAX86141_MUX_Testboard" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -73,11 +73,11 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="36" y="119" useTextEdit="1" path="../../../../../../integration/nrfx/legacy/nrf_drv_twi.h" left="0" top="106" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="145" useTextEdit="1" path="../../../main.c" left="0" selected="1" top="141" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="7" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="145" useTextEdit="1" path="../../../main.c" left="0" top="141" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="5" useTextEdit="1" path="../../../my_drivers/src/spi_driver.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="521" useTextEdit="1" path="../../../my_drivers/src/ble_driver.c" left="0" top="504" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="60" y="33" useTextEdit="1" path="../../../my_drivers/include/ble_driver.h" left="0" top="21" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="65" y="5" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" top="5" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="10" useTextEdit="1" path="../../../my_drivers/include/max86141_driver.h" left="0" selected="1" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="256" useTextEdit="1" path="../../../my_drivers/src/max86141_driver.c" left="0" top="216" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="44" y="9916" useTextEdit="1" path="../config/sdk_config.h" left="0" top="9904" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="42" y="965" useTextEdit="1" path="../../../../../../external/segger_rtt/SEGGER_RTT.c" left="0" top="955" codecName="Default"/>
@@ -86,5 +86,5 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="308" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/nrfx_common.h" left="0" top="296" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="39" y="671" useTextEdit="1" path="../../../../../../modules/nrfx/drivers/src/nrfx_saadc.c" left="0" top="631" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="MAX86141_MUX_Testboard" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/Users/ericwang/Library/CloudStorage/Box-Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio 8.10b/source/thumb_crt0.s&#xa;&#xa;C:/Users/fengw/Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/components/libraries/log/src/nrf_log_str_formatter.c&#xa;&#xa;C:/Users/fengw/Downloads/Nordic SDK 15.3/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/util/app_error_weak.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V3.1/system_control.c&#xa;" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <EMStudioWindow activeProject="MAX86141_MUX_Testboard" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/Users/ericwang/Library/CloudStorage/Box-Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Testboard/main.c&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio 8.10b/source/thumb_crt0.s&#xa;&#xa;C:/Users/fengw/Box/Eric &amp; Nanshu/Projects/Optical e-tattoo/nRF52_Driver/Nordic SDK 15.3/components/libraries/log/src/nrf_log_str_formatter.c&#xa;&#xa;C:/Users/fengw/Downloads/Nordic SDK 15.3/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp/bsp.c&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/bsp/bsp.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/components/libraries/util/app_error_weak.c&#xa;&#xa;C:/Users/Jack Son/Documents/Nordic SDK 15.3/projects/PPG_Array/MAX86141 MUX Array V3.1/system_control.c&#xa;" fileDialogInitialDirectory="C:/Users/Jack Son/Documents/Repositories/NRF_Drivers/components/libraries/bsp" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
