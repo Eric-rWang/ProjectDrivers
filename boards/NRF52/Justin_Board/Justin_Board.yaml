@@ -1,0 +1,10 @@
+identifier: Justin_Board/nrf52805
+name: Justin's Board
+vendor: NRF52
+type: mcu
+arch: arm
+ram: 24
+flash: 56
+toolchain:
+  - zephyr
+supported: []

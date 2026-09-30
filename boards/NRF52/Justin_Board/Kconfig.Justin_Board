@@ -1,0 +1,2 @@
+config BOARD_JUSTIN_BOARD
+	select SOC_NRF52805_CAAA

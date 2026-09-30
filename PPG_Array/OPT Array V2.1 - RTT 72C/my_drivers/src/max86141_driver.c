@@ -7,6 +7,7 @@
 
 #include "helper_functions.h"
 #include "system_control.h"
+#include <math.h>
 
 //CS Array Init
 uint8_t PIN_CS_PPG[NUM_MAX_IC] = {
@@ -538,3 +539,99 @@ void max86141_cs_pin_test(void)
     // Restore the register to your init value (0x02 = MUX control)
     spi_write_multi_reg(PIN_CS_PPG, MAX86141_PPG_SYNC_CONTROL, 0x02, NUM_MAX_IC);
 }
+
+// WIP SECTION for implementing a SNR calculator using a low pass filter to separate noise
+
+// First-order Butterworth low-pass: I'm going to assume 10 Hz cutoff for now
+// K = tan(pi * 10 / 100), digitalized version of analog filter
+// b0 = b1 = K / (1 + K), input weights
+// a = (1 - K) / (1 + K), 1 - a0 - a1
+// Separate states for every channel, not just every IC
+typedef struct {
+    float previous_x;
+    float previous_y;
+    uint8_t initialized; // check first filtered value
+} LowPassFilter_t;
+
+// Call before use and after a sampling discontinuity or channel change.
+void LPF_init(LowPassFilter_t *filter)
+{
+    filter->previous_x = 0.0f;
+    filter->previous_y = 0.0f;
+    filter->initialized = 0;
+}
+
+float LPF_process(LowPassFilter_t *filter, float input)
+{
+    // Seed with the first sample to avoid a startup ramp from zero to PPG DC
+    if (!filter->initialized) {
+        filter->previous_x = input;
+        filter->previous_y = input;
+        filter->initialized = 1;
+        return input;
+    }
+
+    float output = 0.2452373f * input // b0
+                 + 0.2452373f * filter->previous_x // b1
+                 + 0.5095254f * filter->previous_y; // a0
+
+    filter->previous_x = input;
+    filter->previous_y = output;
+    return output;
+}
+// we can roughly estimate noise to be input - output for a particular sample.
+// but maybe there is some components of the signal that were accidentally filtered out from the arbitrarily
+// chosen cutoff frequency, so need to edit the cutoff freq and weights
+#define sample_window 50
+float signal_array[sample_window];
+float noise_array[sample_window]; // make circular
+int i = 0;
+int r = 0; // if 0, means that the array hasn't filled up for the first time yet
+float SNR_calculation(float input, LowPassFilter_t *filter) {
+    // get the output
+    float output = LPF_process(filter, input);
+    signal_array[i] = output;
+    noise_array[i] = input - output;
+    int prev = i;
+    i = (i + 1) % sample_window; // loop arr back around
+    if (r == 0 && i-1 != prev) {
+        r = 1;
+    }
+    if (r == 1) {
+        // indicates that we can start calculating SNR data
+        float mean_DC = 0.0f;
+        for (unsigned int j = 0; j < sample_window; j++) {
+            mean_DC += signal_array[j];
+        }
+        mean_DC = mean_DC / sample_window;
+        // now calculate the signal energy and noise energy
+        // power = V^2 / R, R cancels out so just ratio of V^2s
+        float signal_energy = 0.0f;
+        float noise_energy = 0.0f;
+        float ac = 0.0f;
+        float noise = 0.0f;
+        for (unsigned int k = 0; k < sample_window; k++) {
+            ac = (signal_array[k] - mean_DC);
+            noise = noise_array[k];
+            signal_energy += ac * ac;
+            noise_energy += noise * noise;
+        }
+        // do an approximation for log2
+        return (3.0103f * log2_approx(signal_energy / noise_energy)); // 10 log10 (signal energy / noise energy) approximation
+    }
+}
+
+float log2_approx(float x) {
+    int exp;
+    float mantissa = frexp(fabsf(x), &exp);
+    float y = 1.2314959f;
+    y *= mantissa;
+    y += -4.1185252f;
+    y *= mantissa;
+    y += 6.0219701f;
+    y *= mantissa;
+    y += -3.1339645f;
+    // rough approximation of log2
+    return y + (float)exp;
+}
+

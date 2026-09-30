@@ -1,0 +1,15 @@
+{
+  "cmake.configureOnOpen": false,
+  "files.associations": {
+    "*.h": "c",
+    "*.emProject": "xml",
+    "*.emSession": "xml"
+  },
+  "files.exclude": {
+    "**/Output_VSCode": true
+  },
+  "search.exclude": {
+    "**/Output": true,
+    "**/Output_VSCode": true
+  }
+}

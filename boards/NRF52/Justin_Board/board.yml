@@ -1,0 +1,6 @@
+board:
+  name: Justin_Board
+  full_name: Justin_Board
+  vendor: NRF52
+  socs:
+    - name: nrf52805

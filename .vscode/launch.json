@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach nRF52811 via J-Link (no flash)",
+      "type": "cortex-debug",
+      "request": "attach",
+      "servertype": "jlink",
+      "cwd": "${workspaceFolder}/PPG_Array/OPT Array V1.0 - BLE 72C/pca10056e/s112/ses",
+      "executable": "${workspaceFolder}/PPG_Array/OPT Array V1.0 - BLE 72C/pca10056e/s112/ses/Output_VSCode/Debug/Exe/MAX86141_MUX_Testboard.elf",
+      "device": "nRF52811_xxAA",
+      "interface": "swd",
+      "serverpath": "C:/Program Files/SEGGER/JLink_V924a/JLinkGDBServerCL.exe",
+      "armToolchainPath": "C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.3 rel1/bin",
+      "svdFile": "${workspaceFolder}/../modules/nrfx/mdk/nrf52811.svd"
+    }
+  ]
+}
