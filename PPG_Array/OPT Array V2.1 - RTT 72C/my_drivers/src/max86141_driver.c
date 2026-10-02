@@ -636,4 +636,24 @@ float log2_approx(float x) {
     // rough approximation of log2
     return y + (float)exp;
 }
+// function to sort through each of the calculated SNRs, returns the index of the largest SNR
+int max_SNR() {
+    float channel_max = 0;
+    int index = 0;
+    for (int i = 0; i < channels; i++) {
+        if (SNR[i] > channel_max) {
+            channel_max = i;
+            index = i;
+        }
+    }
+    return i;
+}
 
+void set_initial_currents() {
+    spi_write_reg(PIN_CS_PPG[0], MAX86141_LED1_PA, 0x10);
+    spi_write_reg(PIN_CS_PPG[1], MAX86141_LED2_PA, 0x20);
+    spi_write_reg(PIN_CS_PPG[2], MAX86141_LED3_PA, 0x40);
+    spi_write_reg(PIN_CS_PPG[3], MAX86141_LED4_PA, 0x80);
+    spi_write_reg(PIN_CS_PPG[4], MAX86141_LED5_PA, 0xC0);
+    spi_write_reg(PIN_CS_PPG[5], MAX86141_LED5_PA, 0xFF);
+}
