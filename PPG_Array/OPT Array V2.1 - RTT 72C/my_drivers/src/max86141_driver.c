@@ -583,15 +583,17 @@ float LPF_process(LowPassFilter_t *filter, float input)
 // but maybe there is some components of the signal that were accidentally filtered out from the arbitrarily
 // chosen cutoff frequency, so need to edit the cutoff freq and weights
 #define sample_window 50
-float signal_array[sample_window];
-float noise_array[sample_window]; // make circular
+#define channels 6
+float signal_array[channels][sample_window];
+float noise_array[channels][sample_window]; // make circular
 int i = 0;
 int r = 0; // if 0, means that the array hasn't filled up for the first time yet
-float SNR_calculation(float input, LowPassFilter_t *filter) {
+int SNR[channels];
+float SNR_calculation(float input, LowPassFilter_t *filter, int channel) {
     // get the output
     float output = LPF_process(filter, input);
-    signal_array[i] = output;
-    noise_array[i] = input - output;
+    signal_array[channel][i] = output;
+    noise_array[channel][i] = input - output;
     int prev = i;
     i = (i + 1) % sample_window; // loop arr back around
     if (r == 0 && i-1 != prev) {
@@ -601,7 +603,7 @@ float SNR_calculation(float input, LowPassFilter_t *filter) {
         // indicates that we can start calculating SNR data
         float mean_DC = 0.0f;
         for (unsigned int j = 0; j < sample_window; j++) {
-            mean_DC += signal_array[j];
+            mean_DC += signal_array[channel][j];
         }
         mean_DC = mean_DC / sample_window;
         // now calculate the signal energy and noise energy
@@ -611,13 +613,13 @@ float SNR_calculation(float input, LowPassFilter_t *filter) {
         float ac = 0.0f;
         float noise = 0.0f;
         for (unsigned int k = 0; k < sample_window; k++) {
-            ac = (signal_array[k] - mean_DC);
-            noise = noise_array[k];
+            ac = (signal_array[channel][k] - mean_DC);
+            noise = noise_array[channel][k];
             signal_energy += ac * ac;
             noise_energy += noise * noise;
         }
         // do an approximation for log2
-        return (3.0103f * log2_approx(signal_energy / noise_energy)); // 10 log10 (signal energy / noise energy) approximation
+        SNR[channel] = (3.0103f * log2_approx(signal_energy / noise_energy)); // 10 log10 (signal energy / noise energy) approximation
     }
 }
 
