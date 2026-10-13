@@ -542,28 +542,58 @@ void max86141_cs_pin_test(void)
 
 // WIP SECTION for implementing a SNR calculator using a low pass filter to separate noise
 
-// First-order Butterworth low-pass: I'm going to assume 10 Hz cutoff for now
-// K = tan(pi * 10 / 100), digitalized version of analog filter
-// b0 = b1 = K / (1 + K), input weights
-// a = (1 - K) / (1 + K), 1 - a0 - a1
-// Separate states for every channel, not just every IC
+// Streaming SNR: one five-second measurement per chip/LED/photodiode/current.
+// This section does NOT read FIFOs, decode tags, or automatically print results.
+// Feed decoded, demultiplexed ADC samples from the existing acquisition path.
+#include <math.h>
+#include <string.h>
+
+// Keep 100 Hz until the actual per-stream rate has been verified. Set to 25
+// for verified 25 Hz acquisition: the window becomes 125 samples and the
+// filter coefficients are recomputed when SNR_begin_step() is called.
+#define SNR_SAMPLE_RATE_HZ 100U
+#define SNR_CUTOFF_HZ 10.0f
+#define SNR_WINDOW_SAMPLES (5U * SNR_SAMPLE_RATE_HZ)
+#define SNR_LED_COUNT 6U
+#define SNR_PD_COUNT 2U
+#define SNR_STEP_COUNT 6U
+
 typedef struct {
     float previous_x;
     float previous_y;
-    uint8_t initialized; // check first filtered value
+    uint8_t initialized;
 } LowPassFilter_t;
 
-// Call before use and after a sampling discontinuity or channel change.
+typedef struct {
+    LowPassFilter_t filter;
+    uint32_t count;
+    float mean;
+    float signal_M2;
+    float noise_energy;
+} SNR_Stream_t;
+
+// Only the CURRENT step needs accumulators. Earlier steps keep just results.
+static SNR_Stream_t snr_streams[NUM_MAX_IC][SNR_LED_COUNT][SNR_PD_COUNT];
+float SNR[NUM_MAX_IC][SNR_LED_COUNT][SNR_PD_COUNT][SNR_STEP_COUNT];
+static uint8_t snr_result_valid[NUM_MAX_IC][SNR_LED_COUNT][SNR_PD_COUNT][SNR_STEP_COUNT];
+static int snr_active_step = -1;
+static float lpf_b = 0.2452373f;
+static float lpf_feedback = 0.5095254f;
+
+static const uint8_t steps[SNR_STEP_COUNT] = {
+    0x10, 0x20, 0x40, 0x80, 0xC0, 0xFF
+}; // different current
+static const uint8_t MAX86141_LED[SNR_LED_COUNT] = {
+    0x23, 0x24, 0x25, 0x26, 0x27, 0x28
+}; // LED on the PPG
+
 void LPF_init(LowPassFilter_t *filter)
 {
-    filter->previous_x = 0.0f;
-    filter->previous_y = 0.0f;
-    filter->initialized = 0;
+    memset(filter, 0, sizeof(*filter));
 }
 
 float LPF_process(LowPassFilter_t *filter, float input)
 {
-    // Seed with the first sample to avoid a startup ramp from zero to PPG DC
     if (!filter->initialized) {
         filter->previous_x = input;
         filter->previous_y = input;
@@ -571,89 +601,149 @@ float LPF_process(LowPassFilter_t *filter, float input)
         return input;
     }
 
-    float output = 0.2452373f * input // b0
-                 + 0.2452373f * filter->previous_x // b1
-                 + 0.5095254f * filter->previous_y; // a0
-
+    float output = lpf_b * input + lpf_b * filter->previous_x
+                 + lpf_feedback * filter->previous_y;
     filter->previous_x = input;
     filter->previous_y = output;
     return output;
 }
-// we can roughly estimate noise to be input - output for a particular sample.
-// but maybe there is some components of the signal that were accidentally filtered out from the arbitrarily
-// chosen cutoff frequency, so need to edit the cutoff freq and weights
-#define sample_window 50
-#define channels 6
-float signal_array[channels][sample_window];
-float noise_array[channels][sample_window]; // make circular
-int i = 0;
-int r = 0; // if 0, means that the array hasn't filled up for the first time yet
-int SNR[channels];
-float SNR_calculation(float input, LowPassFilter_t *filter, int channel) {
-    // get the output
-    float output = LPF_process(filter, input);
-    signal_array[channel][i] = output;
-    noise_array[channel][i] = input - output;
-    int prev = i;
-    i = (i + 1) % sample_window; // loop arr back around
-    if (r == 0 && i-1 != prev) {
-        r = 1;
-    }
-    if (r == 1) {
-        // indicates that we can start calculating SNR data
-        float mean_DC = 0.0f;
-        for (unsigned int j = 0; j < sample_window; j++) {
-            mean_DC += signal_array[channel][j];
+
+// Reset at the start of a new sweep. No hardware writes are performed.
+void SNR_reset(void)
+{
+    memset(snr_streams, 0, sizeof(snr_streams));
+    memset(snr_result_valid, 0, sizeof(snr_result_valid));
+    snr_active_step = -1;
+    for (unsigned int chip = 0; chip < NUM_MAX_IC; chip++) {
+        for (unsigned int led = 0; led < SNR_LED_COUNT; led++) {
+            for (unsigned int pd = 0; pd < SNR_PD_COUNT; pd++) {
+                for (unsigned int step = 0; step < SNR_STEP_COUNT; step++) {
+                    SNR[chip][led][pd][step] = NAN;
+                }
+            }
         }
-        mean_DC = mean_DC / sample_window;
-        // now calculate the signal energy and noise energy
-        // power = V^2 / R, R cancels out so just ratio of V^2s
-        float signal_energy = 0.0f;
-        float noise_energy = 0.0f;
-        float ac = 0.0f;
-        float noise = 0.0f;
-        for (unsigned int k = 0; k < sample_window; k++) {
-            ac = (signal_array[channel][k] - mean_DC);
-            noise = noise_array[channel][k];
-            signal_energy += ac * ac;
-            noise_energy += noise * noise;
-        }
-        // do an approximation for log2
-        SNR[channel] = (3.0103f * log2_approx(signal_energy / noise_energy)); // 10 log10 (signal energy / noise energy) approximation
     }
 }
 
-float log2_approx(float x) {
-    int exp;
-    float mantissa = frexp(fabsf(x), &exp);
-    float y = 1.2314959f;
-    y *= mantissa;
-    y += -4.1185252f;
-    y *= mantissa;
-    y += 6.0219701f;
-    y *= mantissa;
-    y += -3.1339645f;
-    // rough approximation of log2
-    return y + (float)exp;
-}
-// function to sort through each of the calculated SNRs, returns the index of the largest SNR
-int max_SNR() {
-    float channel_max = 0;
-    int index = 0;
-    for (int i = 0; i < channels; i++) {
-        if (SNR[i] > channel_max) {
-            channel_max = i;
-            index = i;
+bool SNR_begin_step(unsigned int step)
+{
+    if (step >= SNR_STEP_COUNT || SNR_CUTOFF_HZ <= 0.0f
+        || SNR_CUTOFF_HZ >= 0.5f * (float)SNR_SAMPLE_RATE_HZ
+        || SNR_WINDOW_SAMPLES < 2U) {
+        return false;
+    }
+
+    // One tangent calculation per step, NOT per sample
+    float k = tanf(3.14159265358979323846f * SNR_CUTOFF_HZ
+                   / (float)SNR_SAMPLE_RATE_HZ);
+    lpf_b = k / (1.0f + k);
+    lpf_feedback = (1.0f - k) / (1.0f + k);
+
+    memset(snr_streams, 0, sizeof(snr_streams));
+    for (unsigned int chip = 0; chip < NUM_MAX_IC; chip++) {
+        for (unsigned int led = 0; led < SNR_LED_COUNT; led++) {
+            for (unsigned int pd = 0; pd < SNR_PD_COUNT; pd++) {
+                SNR[chip][led][pd][step] = NAN;
+                snr_result_valid[chip][led][pd][step] = 0;
+            }
         }
     }
-    return i;
+    snr_active_step = (int)step;
+    return true;
 }
 
-void set_initial_currents() {
-    spi_write_reg(PIN_CS_PPG[0], MAX86141_LED1_PA, 0x10);
-    spi_write_reg(PIN_CS_PPG[1], MAX86141_LED2_PA, 0x20);
-    spi_write_reg(PIN_CS_PPG[2], MAX86141_LED3_PA, 0x40);
-    spi_write_reg(PIN_CS_PPG[3], MAX86141_LED4_PA, 0x80);
-    spi_write_reg(PIN_CS_PPG[4], MAX86141_LED5_PA, 0xC0);
-    spi_write_reg(PIN_CS_PPG[5], MAX86141_LED5_PA, 0xFF);
+
+bool SNR_push_sample(float input, unsigned int chip,
+                     unsigned int led, unsigned int pd)
+{
+    if (snr_active_step < 0 || chip >= NUM_MAX_IC || led >= SNR_LED_COUNT
+        || pd >= SNR_PD_COUNT || !isfinite(input)) {
+        return false; // cases where input isn't valid
+    }
+
+    SNR_Stream_t *state = &snr_streams[chip][led][pd];
+    if (state->count >= SNR_WINDOW_SAMPLES) {
+        return false;
+    }
+
+    float filtered = LPF_process(&state->filter, input);
+    float residual = input - filtered;
+    state->count++;
+
+    // Welford algorithm
+    float delta = filtered - state->mean;
+    state->mean += delta / (float)state->count;
+    state->signal_M2 += delta * (filtered - state->mean);
+    state->noise_energy += residual * residual;
+
+    if (state->count != SNR_WINDOW_SAMPLES) {
+        return false;
+    }
+
+    float signal_energy = fmaxf(state->signal_M2, 0.0f);
+    float noise_energy = state->noise_energy;
+    float result;
+    if (noise_energy == 0.0f) {
+        result = signal_energy > 0.0f ? INFINITY : NAN;
+    } else if (signal_energy == 0.0f) {
+        result = -INFINITY;
+    } else {
+        // Only one logarithm per completed window. N cancels in the ratio.
+        result = 10.0f * log10f(signal_energy / noise_energy);
+    }
+
+    SNR[chip][led][pd][snr_active_step] = result;
+    snr_result_valid[chip][led][pd][snr_active_step] = !isnan(result);
+    return true;
 }
+
+// Returns NAN until completion, then the window result
+float SNR_calculation(float input, unsigned int chip,
+                      unsigned int led, unsigned int pd)
+{
+    if (!SNR_push_sample(input, chip, led, pd)) {
+        return NAN;
+    }
+    return SNR[chip][led][pd][snr_active_step];
+}
+
+// Return current index for one stream, or -1 if none is valid
+// Negative dB results valid, NAN isnt
+int max_SNR(unsigned int led, unsigned int chip, unsigned int pd)
+{
+    if (chip >= NUM_MAX_IC || led >= SNR_LED_COUNT || pd >= SNR_PD_COUNT) {
+        return -1;
+    }
+    int best_step = -1;
+    float best_value = -INFINITY;
+    for (unsigned int step = 0; step < SNR_STEP_COUNT; step++) {
+        if (snr_result_valid[chip][led][pd][step]
+            && (best_step < 0 || SNR[chip][led][pd][step] > best_value)) {
+            best_value = SNR[chip][led][pd][step];
+            best_step = (int)step;
+        }
+    }
+    return best_step;
+}
+
+// Applies one current code to all six LED slots on every chip
+bool set_current_step(unsigned int step)
+{
+    if (step >= SNR_STEP_COUNT) {
+        return false;
+    }
+    for (unsigned int chip = 0; chip < NUM_MAX_IC; chip++) {
+        for (unsigned int led = 0; led < SNR_LED_COUNT; led++) {
+            spi_write_reg(PIN_CS_PPG[chip], MAX86141_LED[led], steps[step]);
+        }
+    }
+    return true;
+}
+
+// Start at the lowest step; don't go through all currents without sampling
+void set_initial_currents(void)
+{
+    (void)set_current_step(0);
+}
+
+
