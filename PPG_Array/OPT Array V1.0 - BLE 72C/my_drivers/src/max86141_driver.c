@@ -69,6 +69,140 @@ void max86141_config_pin(void) {
 
         max86141_cs_set();
 }
+max86141_led_set_fixed_current(uint8_t curr) {
+  spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_1, (curr << 4) | (curr << 2) | (curr), NUM_MAX_IC);
+  spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_2, (curr << 4) | (curr << 2) | (curr), NUM_MAX_IC);
+
+}
+
+void max86141_led_set_current(void) {
+    uint8_t currents = 0x00;
+    const uint8_t bytes_to_read = MAX86141_FIFO_SAMPLES * 3;
+    uint8_t data_buf[MAX86141_FIFO_SAMPLES * 3];
+
+    #define SNR_REPS 50 //2 seconds of sampling data
+    static float sample_history[NUM_MAX_IC][SNR_REPS];  //Keeps track of the recorded value of each sample per IC
+    static int sample_count[NUM_MAX_IC] = {0};  //Keeps tracks of how many times each IC was sampled
+
+    float best_snr[NUM_MAX_IC];
+    uint8_t best_curr[NUM_MAX_IC];
+    for (int ic = 0; ic < NUM_MAX_IC; ic++) {
+        best_snr[ic] = -1000.0f;  // sentinel: anything measured will beat this
+        best_curr[ic] = currents;
+    }
+
+   while (currents < 0x7C) {
+        //Writing current levels to ICs
+        spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_1, (currents << 4) | (currents << 2) | (currents), NUM_MAX_IC);
+        spi_write_multi_reg(PIN_CS_PPG, MAX86141_LED_RANGE_2, (currents << 4) | (currents << 2) | (currents), NUM_MAX_IC);
+
+        for (int ic = 0; ic < NUM_MAX_IC; ic++) {
+            //Record data into sample_history
+            memset(sample_history[ic], 0, sizeof(sample_history[ic]));
+
+            int r = 0, n_inv = 0, n_tag = 0, n_poll = 0;
+
+            while (r < SNR_REPS) {
+                uint8_t cnt = spi_read_reg(PIN_CS_PPG[ic], 0x07);
+                if (cnt == 0) {
+                    if (++n_poll > 250) break
+                    nrf_delay_ms(2);
+                    continue;
+                }
+                n_poll = 0;
+
+                memset(data_buf, 0xAA, 3);
+                spi_burst_read(PIN_CS_PPG[ic], MAX86141_FIFO_DATA_REGISTER, data_buf, 3);
+
+                max86141_sample_t s = max86141_unpack_fifo_word(data_buf);
+
+                if (s.tag == 0x1E){ 
+                  n_inv++; continue; 
+                }
+
+                sample_history[ic][r++] = (float)s.adc_val;
+            }
+
+            //NRF_LOG_INFO("IC %d cur %d n=%d inv=%d polls=%d", ic, currents, r, n_inv, n_poll);
+            //Smoothing out calculated data
+            float smoothed[SNR_REPS];
+            moving_average(sample_history[ic], smoothed, SNR_REPS, 5);
+
+            float min_v = smoothed[0], max_v = smoothed[0];
+            for (int k = 0; k < SNR_REPS; k++) {
+                if (smoothed[k] < min_v) min_v = smoothed[k];
+                if (smoothed[k] > max_v) max_v = smoothed[k];
+            }
+            float ac_amplitude = max_v - min_v;
+          
+            float residual_sum_sq = 0;
+            for (int k = 0; k < SNR_REPS; k++) {
+                residual_sum_sq += (sample_history[ic][k]-smoothed[k])*(sample_history[ic][k]-smoothed[k]);
+            }
+            float noise_rms = sqrtf(residual_sum_sq / SNR_REPS);
+            float snr_db;
+            if (noise_rms < 1e-6f) {
+                // Flat signal
+                snr_db = 0.0f;
+            } else {
+                snr_db = 20.0f * log10f(ac_amplitude / noise_rms);
+            }
+            NRF_LOG_INFO("SNR : %d", snr_db);
+            if (snr_db > best_snr[ic]) {
+                best_snr[ic] = snr_db;
+                best_curr[ic] = currents;
+            }
+        }
+        //NRF_LOG_INFO("Current logged: %d", currents);
+        currents++;
+    }
+
+    for (int ic = 0; ic < NUM_MAX_IC; ic++) {
+        NRF_LOG_INFO("IC %d, best current=%d", ic, best_curr[ic]);
+        spi_write_multi_reg(PIN_CS_PPG[ic], MAX86141_LED_RANGE_1, (best_curr[ic] << 4) | (best_curr[ic] << 2) | (best_curr[ic]), 1);
+        spi_write_multi_reg(PIN_CS_PPG[ic], MAX86141_LED_RANGE_2, (best_curr[ic] << 4) | (best_curr[ic] << 2) | (best_curr[ic]), 1);
+    }
+
+    NRF_LOG_FLUSH();
+}
+
+void moving_average(float *samples, float *smoothed, int N, int window_size) {
+    int half = window_size / 2;
+
+    for (int i = 0; i < N; i++) {
+        float sum = 0;
+        int count = 0;
+
+        // Average samples in [i - half, i + half], clipped to array bounds
+        for (int j = i - half; j <= i + half; j++) {
+            if (j >= 0 && j < N) {
+                sum += samples[j];
+                count++;
+            }
+        }
+
+        smoothed[i] = sum / count;
+    }
+}
+
+static max86141_sample_t max86141_unpack_fifo_word(const uint8_t *word) {
+     max86141_sample_t sample;
+
+    sample.tag = (word[0] >> 3) & 0x1F;  // top 5 bits of byte 0
+
+    // Reassemble 19-bit value: low 3 bits of byte0, then byte1, then byte2
+    uint32_t raw = ((uint32_t)(word[0] & 0x07) << 16) |
+                   ((uint32_t)word[1] << 8) |
+                   (uint32_t)word[2];
+
+    // Sign-extend from 19 bits to 32 bits (ADC data can be negative after ambient cancellation)
+    if (raw & 0x40000) {           // bit 18 set -> negative
+        raw |= 0xFFF80000;         // extend sign into upper bits
+    }
+    sample.adc_val = (int32_t)raw;
+
+    return sample;
+}
 
 void max86141_init(void) {
         //Configure pins

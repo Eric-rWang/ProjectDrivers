@@ -3,24 +3,38 @@
 
 /////////////Hardware Pins//////////////////
 #define PIN_CS_PPG1						3
-#define PIN_INT_PPG                                             14
+#define PIN_INT_PPG                                             1
 
-#define NUM_MAX_IC                                             4              
+#define NUM_MAX_IC                                              6              
 #define SPI_CS_1                                                    16
 #define SPI_CS_2                                                    15
 #define SPI_CS_3                                                    17
 #define SPI_CS_4                                                    11
+#define SPI_CS_5                                                    21
+#define SPI_CS_6                                                    18
+
+// SAMPLING_PATTERN
+// 0: Diagonals Only
+// 1: Across Only
+// 2: ALL
+#define SAMPLING_PATTERN                                        2
+
+////////////Constant Variables //////////////
+extern uint8_t PPG_CS_PPG[NUM_MAX_IC];
+#define FIFO_TIMEOUT_RETRIES 1000                 // Adjust this if SPI is exceptionally fast/slow
 
 ////////////Pre-processor defines////////////
 #define MAX86141_FIFO_SAMPLES			12 //MAX86141_PACKET_SIZE_BYTES / 3		//3 bytes per sample       originally 12
-#define MAX86141_PACKET_SIZE_BYTES        MAX86141_FIFO_SAMPLES * 3 
-#define MAX86141_A_FULL					128 - MAX86141_FIFO_SAMPLES
+#define MAX86141_PACKET_SIZE_BYTES              MAX86141_FIFO_SAMPLES * 3 
+#define MAX86141_A_FULL				128 - MAX86141_FIFO_SAMPLES
 #define MAX86141_DIE_TEMP_THRESH		44	//degrees celsius
-#define NRF_DIE_TEMP_THRESH				48	//degrees celsius. The accuracy of the nRF temp sensor is much worse (+/- 5C) and can be expected to be a bit warmer
+#define NRF_DIE_TEMP_THRESH			48	//degrees celsius. The accuracy of the nRF temp sensor is much worse (+/- 5C) and can be expected to be a bit warmer
 
 //#define MAX86141_A_FULL					0x10
 //#define MAX86141_FIFO_SAMPLES			128 - MAX86141_A_FULL
 //128 - 108 = 20 samples
+
+
 
 ////////////////Register Map/////////////////
 #define MAX86141_INTERRUPT_STATUS_1		0x00
@@ -88,6 +102,15 @@
 //Part ID
 #define MAX86141_PART_ID			0xFF
 
+typedef struct {
+    uint8_t tag;      // 5-bit tag: identifies LED1/LED2/Ambient/channel
+    int32_t adc_val;  // 19-bit ADC value, sign-extended to 32 bits
+} max86141_sample_t;
+
+/*
+ *@brief Function to get cs pins.
+ */
+const uint8_t* max86141_get_cs_pins(void);
 
 /*
  *@brief Function to setup the internal registers in the MAX86141
@@ -105,11 +128,6 @@ void max86141_cs_set(void);
 void max86141_cs_clear(void);
 
 /*
- *@brief Function to verify connection between the MAX ICs and NRF
- */
-void max86141_verify_integrity(uint16_t cs_pin);
-
-/*
  *@brief Function to setup the GPIOs in the nRF to detect interrupts from the MAX86141
  */
 void max86141_setup_interrupts(void);
@@ -122,9 +140,16 @@ void max86141_interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t 
 /*
  *@brief Function for reading data from the FIFO of the MAX86141
  */
-void max86141_fifo_parser(uint8_t PIN_CS_PPG);
+
+void max86141_flush_all_fifos(void);
+
+void max86141_process_data(void);
+
+bool max86141_fifo_parser(uint8_t PIN_CS_PPG);
 
 void max86141_fifo_multi_parser(uint8_t* PINS_CS_PPG,  uint8_t num_pins);
+
+bool max86141_fetch_filtered_data(uint8_t cs_pin, uint8_t* out_buf);
 
 void dump_fifo_data(uint8_t *data_buf, uint16_t num_bytes);
 
@@ -143,3 +168,14 @@ void check_die_temperatures();
  */
 void max86141_config_pin(void);
 
+void max86141_led_set_fixed_current(uint8_t curr);
+
+void max86141_led_set_current(void);
+
+static max86141_sample_t max86141_unpack_fifo_word(const uint8_t *word);
+
+void moving_average(float *samples, float *smoothed, int N, int window_size);
+
+void max86141_dump_all_ic_registers(void);
+
+void max86141_cs_pin_test(void);
